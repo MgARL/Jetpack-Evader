@@ -1,0 +1,128 @@
+
+/* HOME PAGE STYLES */
+#modal-credits a{
+    text-decoration: underline;
+    color: #0DCAF0;
+}
+
+#modal-credits a:hover{
+    color: rgb(252, 155, 76);
+}
+.main-page{
+    height: 100vh;
+}
+
+.main-container{
+    display: none;
+}
+
+.modals{
+    background: rgba(0, 0, 0, 0.247);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#modal-content-lb{
+    background: #CFE2FF;
+}
+
+
+.modal-content-credits{
+    background-color: white;
+    margin: 0rem 2rem;
+    padding: 2rem;
+}
+
+.btn-close-modal{
+    display: flex;
+    justify-content: end;
+    margin-bottom: 0.5em;
+    margin-right: 0.3em;
+}
+
+@media screen and (min-width: 1000px) {
+
+    .main-container{
+        display: block;
+    }
+
+    .mobile-container{
+        display: none;
+    }
+    
+}
+
+/* Game Page Styles */
+.game-page{
+    height: 100vh;
+}
+
+.game-container{
+    visibility: hidden;
+}
+@media screen and (min-width: 1000px){
+    .game-container{
+        visibility: visible;
+    }
+
+    #game-area{
+        margin: auto;
+        background-color: black;
+        width: 1000px;
+        height: 450px;
+        overflow: hidden;
+    }
+    #character{
+        height: 50px;
+        width: 50px;
+        background-color: yellow;
+        position: relative;
+        top: 200px;
+        left: 50px;
+    }
+
+    #asteroid{
+        height: 100px;
+        width: 100px;
+        background-color: tomato;
+        position: relative;
+        left: 950px;
+        top: 300px;
+        animation: moving 4s infinite linear;
+    }
+
+    #asteroid2{
+        height: 100px;
+        width: 100px;
+        background-color: tomato;
+        position: relative;
+        left: 950px;
+        top: 50px;
+        animation: moving 4s linear 1.8s infinite ;
+    }
+
+    @keyframes moving{
+        0%{left: 950px}
+        100%{left: -150px;}
+    }
+    #game-over-modal{
+        width: 100vw;
+        max-width: 3100px;
+    }
+    #high-score-input{
+        width: 100vw;
+        max-width: 3100px;
+    }
+    .game-over-content{
+        width: 60%;
+        max-width: 860px;
+        
+    }
+}
+
