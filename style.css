@@ -77,8 +77,11 @@
         width: 1000px;
         height: 450px;
         overflow: hidden;
+        background-image: url(/assets/Background-2.jpg);
+        background-size: cover;
     }
     #character{
+        z-index: 1;
         height: 55px;
         width: 35px;
         /* background-color: yellow; */
@@ -96,6 +99,7 @@
     }
 
     #asteroid{
+        z-index: 1;
         height: 90px;
         width: 90px;
         /* background-color: tomato; */
@@ -112,6 +116,7 @@
     }
 
     #asteroid2{
+        z-index: 1;
         height: 90px;
         width: 100px;
         /* background-color: tomato; */
