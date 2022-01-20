@@ -79,12 +79,20 @@
         overflow: hidden;
     }
     #character{
-        height: 50px;
-        width: 50px;
-        background-color: yellow;
+        height: 55px;
+        width: 35px;
+        /* background-color: yellow; */
         position: relative;
         top: 200px;
         left: 50px;
+        overflow: hidden;
+    }
+    #character-sprite{
+        width: 420px;
+        position: relative;
+        bottom: 128px;
+        right: 360px;
+    
     }
 
     #asteroid{

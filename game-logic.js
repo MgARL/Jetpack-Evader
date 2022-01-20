@@ -9,6 +9,7 @@ let collisionInterval = null;
 
 // Dom Objects
 let astronaut = document.querySelector('#character');
+let astronautSprite = document.querySelector('#character-sprite');
 let obstacle = document.querySelector('#asteroid');
 let obstacle2 = document.querySelector('#asteroid2');
 let currentScoreP = document.querySelector('#current-score');
@@ -63,12 +64,14 @@ function jump(){
     let jumpInterval = setInterval(function(){
         let characterTop = parseInt(window.getComputedStyle(astronaut).getPropertyValue('top'));
         if((characterTop > -5) && (jumpCount < 15)){
-            astronaut.style.top = (characterTop - 4) + 'px'
+            astronaut.style.top = (characterTop - 4) + 'px';
+            astronautSprite.style.bottom = '246px';
         }
         if(jumpCount > 20){
             clearInterval(jumpInterval)
             jumping = 0;
             jumpCount = 0;
+            astronautSprite.style.bottom = '128px'
         }
         jumpCount++
     }, 10)
@@ -199,3 +202,11 @@ function updatingHighScore(){
 //     counter++
 //     console.log(counter)
 // }
+
+
+// bottom: 128px;  resting pos
+// right: 360px;
+
+// Jumping Pos
+// bottom: 246px;
+// right: 360px;
