@@ -96,8 +96,8 @@
     }
 
     #asteroid{
-        height: 100px;
-        width: 100px;
+        height: 90px;
+        width: 90px;
         /* background-color: tomato; */
         position: relative;
         left: 1000px;
@@ -107,13 +107,14 @@
     #asteroid-sprite1{
         width: 270px;
         position: relative;
-        bottom: 40px;
-        right: 100px;
+        bottom: 50px;
+        right: 105px;
     }
 
     #asteroid2{
-        height: 100px;
+        height: 90px;
         width: 100px;
+        /* background-color: tomato; */
         position: relative;
         left: 1000px;
         top: 50px;
@@ -122,13 +123,16 @@
     #asteroid-sprite2{
         width: 280px;
         position: relative;
-        bottom: 55px;
-        right: 110px;
+        bottom: 60px;
+        right: 90px;
+        transform: rotate(180deg);
     }
 
     @keyframes moving{
-        0%{left: 1000px}
-        100%{left: -150px;}
+        0%{left: 1000px;
+            transform: rotate(0deg);}
+        100%{left: -150px;
+            transform: rotate(120deg);}
     }
     #game-over-modal{
         width: 100vw;
