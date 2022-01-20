@@ -35,7 +35,6 @@ obstacle2.addEventListener('animationiteration', () => {
 });
 // Other event listeners
 playAgainBtn.addEventListener('click', playAgain)
-body.addEventListener('click', jump);
 body.addEventListener('keydown', jump);
 
 // function calls
@@ -57,8 +56,8 @@ function gravity(){
 
 //Jumping Function
 
-function jump(){
-    // event.preventDefault()
+function jump(event){
+    event.preventDefault()
     jumping = 1;
     let jumpCount = 0;
     let jumpInterval = setInterval(function(){

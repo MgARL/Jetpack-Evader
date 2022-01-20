@@ -1,7 +1,20 @@
+/* FONTS imports*/
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+/* font-family: 'Press Start 2P', cursive; */
+
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+/* font-family: 'Bungee', cursive; */
+
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+/* font-family: 'Audiowide', cursive; */
 
 /* HOME PAGE STYLES */
+*{
+    font-family: 'Audiowide', cursive;
+}
+
 #modal-credits a{
-    text-decoration: underline;
+    text-decoration: none;
     color: #0DCAF0;
 }
 
@@ -14,6 +27,10 @@
 
 .main-container{
     display: none;
+}
+.main-container h1{
+    font-family: 'Press Start 2P', cursive;
+    font-size: 2em;
 }
 
 .modals{
@@ -72,6 +89,7 @@
     }
 
     #game-area{
+        user-select: none;
         margin: auto;
         background-color: black;
         width: 1000px;
