@@ -120,7 +120,7 @@ function collisionDetection() {
 
     }
 
-    if(astronautOb.y >= 410 || astronautOb.y <= -8){
+    if(astronautOb.y >= 410 || astronautOb.y <= -5){
         console.log('out of bound')
         endGame()
     }

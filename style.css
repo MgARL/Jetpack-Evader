@@ -98,25 +98,36 @@
     #asteroid{
         height: 100px;
         width: 100px;
-        background-color: tomato;
+        /* background-color: tomato; */
         position: relative;
-        left: 950px;
+        left: 1000px;
         top: 300px;
         animation: moving 4s infinite linear;
+    }
+    #asteroid-sprite1{
+        width: 270px;
+        position: relative;
+        bottom: 40px;
+        right: 100px;
     }
 
     #asteroid2{
         height: 100px;
         width: 100px;
-        background-color: tomato;
         position: relative;
-        left: 950px;
+        left: 1000px;
         top: 50px;
         animation: moving 4s linear 1.8s infinite ;
     }
+    #asteroid-sprite2{
+        width: 280px;
+        position: relative;
+        bottom: 55px;
+        right: 110px;
+    }
 
     @keyframes moving{
-        0%{left: 950px}
+        0%{left: 1000px}
         100%{left: -150px;}
     }
     #game-over-modal{
