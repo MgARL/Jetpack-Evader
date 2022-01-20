@@ -21,6 +21,9 @@
 #modal-credits a:hover{
     color: rgb(252, 155, 76);
 }
+#modal-credits{
+    overflow: auto;
+}
 .main-page{
     height: 100vh;
 }
