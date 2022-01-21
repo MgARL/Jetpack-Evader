@@ -31,7 +31,7 @@
 .main-container{
     display: none;
 }
-.main-container h1{
+.title{
     font-family: 'Press Start 2P', cursive;
     font-size: 2em;
 }
@@ -164,7 +164,7 @@
         width: 100vw;
         max-width: 3100px;
     }
-    #high-score-input{
+    #start-game-modal{
         width: 100vw;
         max-width: 3100px;
     }

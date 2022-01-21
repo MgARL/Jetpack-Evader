@@ -6,41 +6,35 @@ let highScore = 0;
 let jumping = 0;
 let gravityInterval = null;
 let collisionInterval = null;
+let fuel = 100;
 
 // Dom Objects
 let astronaut = document.querySelector('#character');
 let astronautSprite = document.querySelector('#character-sprite');
-let obstacle = document.querySelector('#asteroid');
+let obstacle1 = document.querySelector('#asteroid');
 let obstacle2 = document.querySelector('#asteroid2');
 let currentScoreP = document.querySelector('#current-score');
 let highScoreP = document.querySelector('#high-score');
+let fuelP = document.querySelector("#fuel-display");
 let gameArea = document.querySelector('.game-container ');
 let gameOverModal = document.querySelector('#game-over-modal');
+let startGameModal = document.querySelector('#start-game-modal');
 const playAgainBtn = document.querySelector('#play-again-btn');
 const body = document.querySelector('#body');
+const startBtn = document.querySelector('#start-btn');
 
-// moving obstacle listener
-obstacle.addEventListener('animationiteration', () => {
-    let random = ((Math.random()* 350) + 35);
-    obstacle.style.top = `${random}px`;
-    counter++
-    currentScoreP.textContent =`Current Score: ${counter}`
-});
+// moving obstacle1 listener
+obstacle1.addEventListener('animationiteration', randomPos);
 
-obstacle2.addEventListener('animationiteration', () => {
-    let random = ((Math.random()* 380) + 8);
-    obstacle2.style.top = `${random}px`;
-    counter++
-    currentScoreP.textContent =`Current Score: ${counter}`
-});
+obstacle2.addEventListener('animationiteration', randomPos);
 // Other event listeners
-playAgainBtn.addEventListener('click', playAgain)
+playAgainBtn.addEventListener('click', playAgain);
 body.addEventListener('keydown', jump);
+startBtn.addEventListener('click', startGame);
 
 // function calls
 
 getHighScore();
-startGame();
 
 // Function Section
 
@@ -59,6 +53,7 @@ function gravity(){
 function jump(event){
     event.preventDefault()
     jumping = 1;
+    trackingFuel();
     let jumpCount = 0;
     let jumpInterval = setInterval(function(){
         let characterTop = parseInt(window.getComputedStyle(astronaut).getPropertyValue('top'));
@@ -78,35 +73,29 @@ function jump(event){
 
 // collision detection Function
 function collisionDetection() {
-    let astroLeft = parseInt(window.getComputedStyle(astronaut).getPropertyValue('left'));
-    let astroTop = parseInt(window.getComputedStyle(astronaut).getPropertyValue('top'));  
 
     let astronautOb = {
-        width: 50,
-        height: 50,
-        x: astroLeft,
-        y: astroTop
+        width: parseInt(window.getComputedStyle(astronaut).getPropertyValue('width')),
+        height: parseInt(window.getComputedStyle(astronaut).getPropertyValue('height')),
+        x: parseInt(window.getComputedStyle(astronaut).getPropertyValue('left')),
+        y: parseInt(window.getComputedStyle(astronaut).getPropertyValue('top'))
     }
 
-    let obstacle1Left = parseInt(window.getComputedStyle(obstacle).getPropertyValue('left'));
-    let obstacle1Top = parseInt(window.getComputedStyle(obstacle).getPropertyValue('top'));
 
     let obstacle1Ob ={
-        width: 100,
-        height: 100,
-        x: obstacle1Left + 50,
-        y:  obstacle1Top
+        width: parseInt(window.getComputedStyle(obstacle1).getPropertyValue('width')),
+        height: parseInt(window.getComputedStyle(obstacle1).getPropertyValue('height')),
+        x: parseInt(window.getComputedStyle(obstacle1).getPropertyValue('left')) + 30,
+        y:  parseInt(window.getComputedStyle(obstacle1).getPropertyValue('top'))
     }
 
     
-    let obstacle2Left = parseInt(window.getComputedStyle(obstacle2).getPropertyValue('left'));
-    let obstacle2Top = parseInt(window.getComputedStyle(obstacle2).getPropertyValue('top'));
     
     let obstacle2Ob ={
-        width: 100,
-        height: 100,
-        x: obstacle2Left + 140,
-        y:  obstacle2Top
+        width: parseInt(window.getComputedStyle(obstacle2).getPropertyValue('width')),
+        height: parseInt(window.getComputedStyle(obstacle2).getPropertyValue('height')),
+        x: parseInt(window.getComputedStyle(obstacle2).getPropertyValue('left')) + 120,
+        y:  parseInt(window.getComputedStyle(obstacle2).getPropertyValue('top'))
     }
     
     if(astronautOb.x < obstacle1Ob.x + obstacle1Ob.width && astronautOb.x + astronautOb.width > obstacle1Ob.x && astronautOb.y < obstacle1Ob.y + obstacle1Ob.height && astronautOb.y + astronautOb.height > obstacle1Ob.y){
@@ -126,8 +115,10 @@ function collisionDetection() {
 }
 
 function startGame() {
+    startGameModal.classList.add('d-none');
+    gameArea.classList.remove('d-none');
     gravityInterval = setInterval(gravity,10)
-    collisionInterval = setInterval(collisionDetection,10)
+    collisionInterval = setInterval(collisionDetection,10);
     highScoreP.textContent = `High Score: ${highScore}`;
 }
 
@@ -163,9 +154,11 @@ async function endGame(){
     highSD.textContent = `High Score is: ${highScore}`
     
 
-    // resetting the counter back to 0
+    // resetting the counter and fuel
     counter = 0;
     currentScoreP.textContent =`Current Score: ${counter}`
+
+    fuel = 100;
 
     // moving astronaut to initial position
 
@@ -195,12 +188,21 @@ function updatingHighScore(){
 }
 
 // Random obstacle place function
-// function  randomPos(){
-//     let random = ((Math.random()* 300) + 50);
-//     obstacle.style.top = `${random}px`;
-//     counter++
-//     console.log(counter)
-// }
+function  randomPos(event){
+    let random = (Math.random()* 380);
+    event.target.style.top = `${random}px`;
+    counter++
+    currentScoreP.textContent =`Current Score: ${counter}`
+}
+
+function trackingFuel(){
+    fuel -= 3;
+    fuelP.textContent = `Fuel: ${fuel}%`
+
+    if (fuel <=0){
+        endGame();
+    }
+}
 
 
 // bottom: 128px;  resting pos
@@ -209,3 +211,4 @@ function updatingHighScore(){
 // Jumping Pos
 // bottom: 246px;
 // right: 360px;
+

@@ -11,13 +11,16 @@
 </head>
 <body class="game-page bg-dark text-info" id="body">
 
-    <main class="container game-container mt-4">
-        <div class="row mx-5 d-flex justify-content-md-between bg-dark">
-            <div class="col-sm-3">
+    <main class="container game-container mt-4 text-center d-none">
+        <div class="row mx-5 bg-dark">
+            <div class="col-sm-4">
                 <p id="high-score">High Score: 0</p>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <p id="current-score">Current Score: 0</p>
+            </div>
+            <div class="col-sm-4">
+                <p id="fuel-display">Fuel: 100%</p>
             </div>
         </div>
         <div class="row mb-5" id="game-area">
@@ -61,22 +64,33 @@
         </div>
     </section>
 
-    <section class="container modals d-none" id="high-score-input">
-        <div class="game-over-content bg-dark text-center text-info w-25 p-4">
+    <section class="container modals" id="start-game-modal">
+        <div class="game-over-content bg-dark text-center text-light p-4">
             <div class="row">
                 <div class="col-sm-12">
-                    <h3>Congrats You made it to the Top 5!</h3>
+                    <p>Welcome To</p>
+                    <h2 class="title text-info">Jetpack Evader</h2>
                 </div>
             </div>
+            <hr>
             <div class="row">
                 <div class="col-sm-12 mb-2">
-                    <label for="name">Name</label>
-                    <input id="name-input" type="text" placeholder="Please Enter name here..." pattern="[A-Za-z0-9]+" maxlength="12" minlength="3">
+                    <h4>Controls:</h4>
+                   <p>Press <u><b>any key</b></u> to jump</p>
                 </div>
             </div>
-            <div class="row ">
-                <div class="col-sm-12 d-flex justify-content-end">
-                    <button class="btn btn-primary" id="name-btn">submit</button>
+            <hr>
+            <div class="row">
+                <div class="col-sm-12 mb-2">
+                   <p>Avoid the incoming asteroids
+                    every time you jump, you will consume fuel<br>
+                    when fuel gets to 0, or you crash into an asteroid its GAME OVER!</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button id="start-btn" class="btn btn-primary">Start</button>
                 </div>
             </div>
         </div>
