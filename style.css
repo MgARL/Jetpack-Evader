@@ -127,7 +127,7 @@
         position: relative;
         left: 1000px;
         top: 300px;
-        animation: moving 4s infinite linear;
+        animation: moving 6s infinite linear;
     }
     #asteroid-sprite1{
         width: 270px;
@@ -140,11 +140,11 @@
         z-index: 1;
         height: 90px;
         width: 100px;
-        /* background-color: tomato; */
+        /* background-color: tomato;ww */
         position: relative;
         left: 1000px;
         top: 50px;
-        animation: moving 4s linear 1.8s infinite ;
+        animation: moving 6s linear 3s infinite ;
     }
     #asteroid-sprite2{
         width: 280px;
@@ -153,12 +153,30 @@
         right: 90px;
         transform: rotate(180deg);
     }
+    #fuel{
+        position: relative;
+        top: 0px;
+        left: 780px;
+        width: 28px;
+        height: 65px;
+        animation: fuelAnimation 6s linear 1.5s infinite;
+    }
+    #fuel-sprite{
+        height: 80px;
+        position: relative;
+        bottom: 5px;
+        right: 27px;
+    }
 
     @keyframes moving{
         0%{left: 1000px;
             transform: rotate(0deg);}
-        100%{left: -150px;
+        100%{left: -200px;
             transform: rotate(120deg);}
+    }
+    @keyframes fuelAnimation {
+        0%{left: 780px;}
+        100%{left: -255px;}
     }
     #game-over-modal{
         width: 100vw;

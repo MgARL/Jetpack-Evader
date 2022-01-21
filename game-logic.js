@@ -4,15 +4,17 @@
 let counter = 0;
 let highScore = 0;
 let jumping = 0;
+let fuel = 100;
+let collisionCount = 0;
 let gravityInterval = null;
 let collisionInterval = null;
-let fuel = 100;
 
 // Dom Objects
 let astronaut = document.querySelector('#character');
 let astronautSprite = document.querySelector('#character-sprite');
 let obstacle1 = document.querySelector('#asteroid');
 let obstacle2 = document.querySelector('#asteroid2');
+let fuelCell = document.querySelector('#fuel');
 let currentScoreP = document.querySelector('#current-score');
 let highScoreP = document.querySelector('#high-score');
 let fuelP = document.querySelector("#fuel-display");
@@ -27,6 +29,8 @@ const startBtn = document.querySelector('#start-btn');
 obstacle1.addEventListener('animationiteration', randomPos);
 
 obstacle2.addEventListener('animationiteration', randomPos);
+
+fuelCell.addEventListener('animationiteration', randomPos);
 // Other event listeners
 playAgainBtn.addEventListener('click', playAgain);
 body.addEventListener('keydown', jump);
@@ -97,15 +101,26 @@ function collisionDetection() {
         x: parseInt(window.getComputedStyle(obstacle2).getPropertyValue('left')) + 120,
         y:  parseInt(window.getComputedStyle(obstacle2).getPropertyValue('top'))
     }
+    let fuelOB = {
+        width: parseInt(window.getComputedStyle(fuelCell).getPropertyValue('width')),
+        height: parseInt(window.getComputedStyle(fuelCell).getPropertyValue('height')),
+        x: parseInt(window.getComputedStyle(fuelCell).getPropertyValue('left')) + 230,
+        y:  parseInt(window.getComputedStyle(fuelCell).getPropertyValue('top'))
+    }
     
     if(astronautOb.x < obstacle1Ob.x + obstacle1Ob.width && astronautOb.x + astronautOb.width > obstacle1Ob.x && astronautOb.y < obstacle1Ob.y + obstacle1Ob.height && astronautOb.y + astronautOb.height > obstacle1Ob.y){
-        console.log('Collision Detected')
        endGame()
     }
     if(astronautOb.x < obstacle2Ob.x + obstacle2Ob.width && astronautOb.x + astronautOb.width > obstacle2Ob.x && astronautOb.y < obstacle2Ob.y + obstacle2Ob.height && astronautOb.y + astronautOb.height > obstacle2Ob.y){
-        console.log('Collision Detected')
         endGame()
+    }
 
+    if(astronautOb.x < fuelOB.x + fuelOB.width && astronautOb.x + astronautOb.width > fuelOB.x && astronautOb.y < fuelOB.y + fuelOB.height && astronautOb.y + astronautOb.height > fuelOB.y){
+        
+        fuel += 20;
+        fuelP.textContent = `Fuel: ${fuel}%`
+        
+        fuelCell.style.top = '460px'
     }
 
     if(astronautOb.y >= 410 || astronautOb.y <= -5){
@@ -159,6 +174,9 @@ async function endGame(){
     currentScoreP.textContent =`Current Score: ${counter}`
 
     fuel = 100;
+    fuelP.textContent = `Fuel: ${fuel}%`
+
+    
 
     // moving astronaut to initial position
 
@@ -196,7 +214,7 @@ function  randomPos(event){
 }
 
 function trackingFuel(){
-    fuel -= 3;
+    fuel -= 2;
     fuelP.textContent = `Fuel: ${fuel}%`
 
     if (fuel <=0){
