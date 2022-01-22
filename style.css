@@ -167,10 +167,10 @@
         right: 27px;
     }
     .asteroidAnLvl1{
-        animation: asteroidAnimation 6s linear  5;
+        animation: asteroidAnimation 6s linear  infinite;
     }
     .asteroid2AnLvl1{
-        animation: asteroidAnimation 6s linear 3s 5;
+        animation: asteroidAnimation 6s linear 3s infinite;
     }
      .asteroidAnLvl2{
         animation:  asteroidAnimation 4s infinite 2s linear;
