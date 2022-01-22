@@ -127,7 +127,6 @@
         position: relative;
         left: 1000px;
         top: 300px;
-        animation: moving 6s infinite linear;
     }
     #asteroid-sprite1{
         width: 270px;
@@ -144,7 +143,6 @@
         position: relative;
         left: 1000px;
         top: 50px;
-        animation: moving 6s linear 3s infinite ;
     }
     #asteroid-sprite2{
         width: 280px;
@@ -159,7 +157,8 @@
         left: 780px;
         width: 28px;
         height: 65px;
-        animation: fuelAnimation 6s linear 1.5s infinite;
+        animation: fuelAnimation 6s linear 1.5s 10;
+        /* animation: fuelAnimation 4s linear 1s infinite;  */
     }
     #fuel-sprite{
         height: 80px;
@@ -167,8 +166,17 @@
         bottom: 5px;
         right: 27px;
     }
+    .asteroidAnLvl1{
+        animation: asteroidAnimation 6s linear  5;
+    }
+    .asteroid2AnLvl1{
+        animation: asteroidAnimation 6s linear 3s 5;
+    }
+     .asteroidAnLvl2{
+        animation:  asteroidAnimation 4s infinite 2s linear;
+     }
 
-    @keyframes moving{
+    @keyframes asteroidAnimation{
         0%{left: 1000px;
             transform: rotate(0deg);}
         100%{left: -200px;

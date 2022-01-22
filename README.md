@@ -4,7 +4,7 @@
 ***
 Inspiration Game: Flappy Bird
 
-No. of Player: Single Player
+No. of Players: Single Player
 
 Goal: High Score(local/ maybe online?)
 

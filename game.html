@@ -25,8 +25,8 @@
         </div>
         <div class="row mb-5" id="game-area">
             <div id="character"><img id="character-sprite" src="/assets/astronaut.png" alt="Astronaut"></div>
-            <div id="asteroid"><img id="asteroid-sprite1" src="/assets/asteroid-white.png" alt="asteroid1"></div>
-            <div id="asteroid2"><img id="asteroid-sprite2" src="/assets/asteroid-red.png" alt="asteroid2"></div>
+            <div id="asteroid" class="asteroidAnLvl1"><img id="asteroid-sprite1" src="/assets/asteroid-white.png" alt="asteroid1"></div>
+            <div id="asteroid2" class="asteroid2AnLvl1"><img id="asteroid-sprite2" src="/assets/asteroid-red.png" alt="asteroid2"></div>
             <div id="fuel"><img id="fuel-sprite" src="/assets/energybox.png" alt="asteroid2"></div>
         </div>
     </main>
@@ -36,34 +36,6 @@
             <h3>THIS GAME IS MEANT TO BE PLAYED ON A COMPUTER BROWSER</h3>
         </div>
     </div>
-
-    <section class="container  modals d-none" id="game-over-modal">
-        <div class="game-over-content bg-dark text-center text-info">
-            <div class="row mt-5">
-                <div class="col-sm-12">
-                    <h3>GAME OVER!</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <h4 id="your-score">Your Score is: 0</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <h4 id="highest-score-display">High Score is: 0</h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 mb-5">
-                    <button id="play-again-btn" class="btn btn-primary">Play Again</button>
-                </div>
-                <div class="col-sm-6">
-                    <a href="index.html" class="btn btn-danger">Quit to Home</a>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <section class="container modals" id="start-game-modal">
         <div class="game-over-content bg-dark text-center text-light p-4">
@@ -96,6 +68,35 @@
             </div>
         </div>
     </section>
+
+    <section class="container  modals d-none" id="game-over-modal">
+        <div class="game-over-content bg-dark text-center text-info">
+            <div class="row mt-5">
+                <div class="col-sm-12">
+                    <h3>GAME OVER!</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4 id="your-score">Your Score is: 0</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4 id="highest-score-display">High Score is: 0</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 mb-5">
+                    <button id="play-again-btn" class="btn btn-primary">Play Again</button>
+                </div>
+                <div class="col-sm-6">
+                    <a href="index.html" class="btn btn-danger">Quit to Home</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     
     <script src="game-logic.js" type="module"></script> 
 </body>

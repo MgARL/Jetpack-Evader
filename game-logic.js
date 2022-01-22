@@ -117,7 +117,10 @@ function collisionDetection() {
 
     if(astronautOb.x < fuelOB.x + fuelOB.width && astronautOb.x + astronautOb.width > fuelOB.x && astronautOb.y < fuelOB.y + fuelOB.height && astronautOb.y + astronautOb.height > fuelOB.y){
         
-        fuel += 20;
+        fuel += 30;
+        if(fuel > 100){
+            fuel = 100;
+        }
         fuelP.textContent = `Fuel: ${fuel}%`
         
         fuelCell.style.top = '460px'
@@ -209,8 +212,11 @@ function updatingHighScore(){
 function  randomPos(event){
     let random = (Math.random()* 380);
     event.target.style.top = `${random}px`;
-    counter++
-    currentScoreP.textContent =`Current Score: ${counter}`
+    if(event.target.id !== 'fuel'){
+        counter++
+        currentScoreP.textContent =`Current Score: ${counter}`
+    }
+    // difficultyCheck(event.target);
 }
 
 function trackingFuel(){
@@ -221,6 +227,15 @@ function trackingFuel(){
         endGame();
     }
 }
+
+function difficultyCheck(element) {
+    if (counter >= 5  && counter <= 7){
+       element.classList.remove('asteroidAnLvl1');
+       element.classList.add('asteroidAnLvl2');
+    }
+}
+
+console.log(fuelCell.id)
 
 
 // bottom: 128px;  resting pos
