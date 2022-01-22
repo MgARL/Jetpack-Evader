@@ -11,6 +11,8 @@ Goal: High Score(local/ maybe online?)
 Playable Character: Astronaut
 
 NPC: None
+
+<a href="https://gifted-rosalind-2ca118.netlify.app/">Click here to play it!</a>
 ***
 ### Main Objective:
 
