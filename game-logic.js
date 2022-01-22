@@ -8,6 +8,7 @@ let fuel = 100;
 let collisionCount = 0;
 let gravityInterval = null;
 let collisionInterval = null;
+let adjusted = false;
 
 // Dom Objects
 let astronaut = document.querySelector('#character');
@@ -26,11 +27,40 @@ const body = document.querySelector('#body');
 const startBtn = document.querySelector('#start-btn');
 
 // moving obstacle1 listener
-obstacle1.addEventListener('animationiteration', randomPos);
+obstacle1.addEventListener('animationiteration', ()=>{
+    let random = (Math.random()* 380);
+    obstacle1.style.top = `${random}px`;
+    counter++
+    currentScoreP.textContent =`Current Score: ${counter}`
+    if (counter >= 10){
+        obstacle1.classList.remove('asteroidAnLvl1');
+        obstacle1.classList.add('asteroidAnLvl2');
+        if(!adjusted){
+            counter--
+            adjusted = true;
+        }
+    }
+});
 
-obstacle2.addEventListener('animationiteration', randomPos);
+obstacle2.addEventListener('animationiteration', ()=>{
+    let random = (Math.random()* 380);
+    obstacle2.style.top = `${random}px`;
+    counter++
+    currentScoreP.textContent =`Current Score: ${counter}`
+    if (counter >= 10){
+        obstacle2.classList.remove('asteroid2AnLvl1');
+        obstacle2.classList.add('asteroid2AnLvl2');
+    }
+});
 
-fuelCell.addEventListener('animationiteration', randomPos);
+fuelCell.addEventListener('animationiteration', ()=>{
+    let random = (Math.random()* 380);
+    fuelCell.style.top = `${random}px`;
+    if (counter >= 10){
+        fuelCell.classList.remove('fuelAnimation');
+        fuelCell.classList.add('fuelAnimationLvl2');
+    }
+});
 // Other event listeners
 playAgainBtn.addEventListener('click', playAgain);
 body.addEventListener('keydown', jump);
@@ -153,10 +183,27 @@ async function endGame(){
     // adding the game-over Screen
     gameOverModal.classList.remove('d-none')
 
+
     // clearing the collision and gravity intervals
     clearInterval(collisionInterval)
     clearInterval(gravityInterval)
     // displaying Current Score and Highest Score on game over screen;
+
+    // resetting Animations Back to default
+    // asteroid 1
+    let ob1CurrentClass = obstacle1.classList;
+    obstacle1.classList.remove(ob1CurrentClass);
+    obstacle1.classList.add('asteroidAnLvl1')
+
+    // asteroid 2
+    let ob2CurrentClass = obstacle2.classList;
+    obstacle2.classList.remove(ob2CurrentClass);
+    obstacle2.classList.add('asteroid2AnLvl1');
+    
+    // fuel Cell
+    let fcCurrentClass = fuelCell.classList;
+    fuelCell.classList.remove(fcCurrentClass);
+    fuelCell.classList.add('fuelAnimation')
 
     // updating highScore and saving to local
     updatingHighScore()
@@ -209,15 +256,15 @@ function updatingHighScore(){
 }
 
 // Random obstacle place function
-function  randomPos(event){
-    let random = (Math.random()* 380);
-    event.target.style.top = `${random}px`;
-    if(event.target.id !== 'fuel'){
-        counter++
-        currentScoreP.textContent =`Current Score: ${counter}`
-    }
-    // difficultyCheck(event.target);
-}
+// function  randomPos(event){
+//     let random = (Math.random()* 380);
+//     event.target.style.top = `${random}px`;
+//     if(event.target.id !== 'fuel'){
+//         counter++
+//         currentScoreP.textContent =`Current Score: ${counter}`
+//     }
+//     difficultyCheck(event.target);
+// }
 
 function trackingFuel(){
     fuel -= 2;
@@ -228,12 +275,21 @@ function trackingFuel(){
     }
 }
 
-function difficultyCheck(element) {
-    if (counter >= 5  && counter <= 7){
-       element.classList.remove('asteroidAnLvl1');
-       element.classList.add('asteroidAnLvl2');
-    }
-}
+// function difficultyCheck(element) {
+//     console.log('element: ',element);
+//     console.log('counter: ',counter);
+//     console.log('class list: ',element.classList);
+//     if (counter === 3){
+//        obstacle1.classList.remove('asteroidAnLvl1');
+//        obstacle1.classList.add('asteroidAnLvl2');
+
+//        obstacle2.classList.remove('asteroid2AnLvl2');
+//        if(!adjusted){
+//            counter--
+//            adjusted = true;
+//        }
+//     }
+// }
 
 console.log(fuelCell.id)
 
@@ -244,4 +300,4 @@ console.log(fuelCell.id)
 // Jumping Pos
 // bottom: 246px;
 // right: 360px;
-
+// let currentClass = obstacle1.classList

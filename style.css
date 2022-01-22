@@ -157,7 +157,6 @@
         left: 780px;
         width: 28px;
         height: 65px;
-        animation: fuelAnimation 6s linear 1.5s infinite;
         /* animation: fuelAnimation 4s linear 1s infinite;  */
     }
     #fuel-sprite{
@@ -166,15 +165,25 @@
         bottom: 5px;
         right: 27px;
     }
+
     .asteroidAnLvl1{
-        animation: asteroidAnimation 6s linear  infinite;
+        animation: asteroidAnimation 6s linear infinite;
     }
     .asteroid2AnLvl1{
         animation: asteroidAnimation 6s linear 3s infinite;
     }
      .asteroidAnLvl2{
-        animation:  asteroidAnimation 4s infinite 2s linear;
+        animation:  asteroidAnimationLvl2 4s infinite 3s linear;
      }
+     .asteroid2AnLvl2{
+       animation: asteroidAnimationLvl2 4s infinite linear;
+     }
+     .fuelAnimation{
+         animation: fuelAnimation 6s linear 1.5s infinite;
+    }
+    .fuelAnimationLvl2{
+        animation: fuelAnimationLvl2 4s linear 3s infinite;
+    }
 
     @keyframes asteroidAnimation{
         0%{left: 1000px;
@@ -182,7 +191,17 @@
         100%{left: -200px;
             transform: rotate(120deg);}
     }
+    @keyframes asteroidAnimationLvl2{
+        0%{left: 1000px;
+            transform: rotate(0deg);}
+        100%{left: -200px;
+            transform: rotate(120deg);}
+    }
     @keyframes fuelAnimation {
+        0%{left: 1035px;}
+        100%{left: -255px;}
+    }
+    @keyframes fuelAnimationLvl2 {
         0%{left: 780px;}
         100%{left: -255px;}
     }
