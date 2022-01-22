@@ -157,7 +157,7 @@
         left: 780px;
         width: 28px;
         height: 65px;
-        animation: fuelAnimation 6s linear 1.5s 10;
+        animation: fuelAnimation 6s linear 1.5s infinite;
         /* animation: fuelAnimation 4s linear 1s infinite;  */
     }
     #fuel-sprite{
