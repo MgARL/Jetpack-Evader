@@ -25,6 +25,11 @@ playSoundFX.volume = 0.5;
 let creditsClickSFX = new Audio('/assets/music/bling.ogg');
 creditsClickSFX.volume = 0.2;
 
+// background Music
+
+let bgMusic = new Audio('/assets/music/Lunar-Lander-Jupiter.mp3');
+bgMusic.volume = 0.3;
+
 
 //adding event listener to show and hide with Credit
 creditsBtn.addEventListener('click', () => {
@@ -44,3 +49,8 @@ creditsBtn.addEventListener('click', () => {
         window.location.href = "/game.html"
     },700)
  })
+window.onload = function() {
+    setTimeout(() => {
+        bgMusic.play();
+    },2000);
+}
