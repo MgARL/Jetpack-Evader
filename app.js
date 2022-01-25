@@ -13,6 +13,11 @@ let closeCrBtn = document.querySelector('#close-modal-cr');
 
 let playGameBtn = document.querySelector('#play-game-btn');
 
+let soundOnBtn = document.querySelector('#sound-on');
+
+let soundOffBtn = document.querySelector('#sound-off');
+
+
 //getting Modal
 
 let creditsModal= document.querySelector('#modal-credits');
@@ -49,6 +54,16 @@ creditsBtn.addEventListener('click', () => {
         window.location.href = "/game.html"
     },700)
  })
+ soundOnBtn.addEventListener('click', () => {
+     soundOnBtn.classList.add('d-none');
+     soundOffBtn.classList.remove('d-none');
+     bgMusic.pause();
+ });
+ soundOffBtn.addEventListener('click',() => {
+    soundOffBtn.classList.add('d-none');
+    soundOnBtn.classList.remove('d-none');
+    bgMusic.play();
+ });
 window.onload = function() {
     setTimeout(() => {
         bgMusic.play();

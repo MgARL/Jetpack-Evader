@@ -65,6 +65,14 @@
     margin-bottom: 0.5em;
     margin-right: 0.3em;
 }
+ .sound-container{
+     overflow: hidden;
+     width: 65px;
+ }
+ .sound-container #sound-off{
+     position: relative;
+     right: 63px;
+ }
 
 @media screen and (min-width: 1000px) {
 
