@@ -34,6 +34,7 @@ creditsClickSFX.volume = 0.2;
 
 let bgMusic = new Audio('/assets/music/Lunar-Lander-Jupiter.mp3');
 bgMusic.volume = 0.3;
+bgMusic.loop = true;
 
 
 //adding event listener to show and hide with Credit
@@ -64,8 +65,7 @@ creditsBtn.addEventListener('click', () => {
     soundOnBtn.classList.remove('d-none');
     bgMusic.play();
  });
-window.onload = function() {
-    setTimeout(() => {
-        bgMusic.play();
-    },2000);
-}
+
+setTimeout(() => {
+    bgMusic.play();
+},2000);

@@ -23,6 +23,15 @@
 }
 #modal-credits{
     overflow: auto;
+    background: rgba(0, 0, 0, 0.247);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    /* height: 100vh; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .main-page{
     height: 100vh;
@@ -54,7 +63,7 @@
 
 
 .modal-content-credits{
-    background-color: white;
+    background-color: #212529;
     margin: 0rem 2rem;
     padding: 2rem;
 }
