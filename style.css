@@ -67,11 +67,11 @@
 }
  .sound-container{
      overflow: hidden;
-     width: 65px;
+     width: 30px;
  }
  .sound-container #sound-off{
      position: relative;
-     right: 63px;
+     right: 30px;
  }
 
 @media screen and (min-width: 1000px) {
@@ -190,7 +190,7 @@
          animation: fuelAnimation 6s linear 1.5s infinite;
     }
     .fuelAnimationLvl2{
-        animation: fuelAnimationLvl2 4s linear 3s infinite;
+        animation: fuelAnimationLvl2 3.5s linear 1.25s infinite;
     }
 
     @keyframes asteroidAnimation{

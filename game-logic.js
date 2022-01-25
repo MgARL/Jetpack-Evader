@@ -25,6 +25,27 @@ let startGameModal = document.querySelector('#start-game-modal');
 const playAgainBtn = document.querySelector('#play-again-btn');
 const body = document.querySelector('#body');
 const startBtn = document.querySelector('#start-btn');
+let soundOnBtn = document.querySelector('#sound-on');
+let soundOffBtn = document.querySelector('#sound-off');
+
+// Creating Sound and Music Objects
+const musicDir = '/assets/music/'
+
+let playBtnSoundFX = new Audio(`${musicDir}magic.ogg`);
+playBtnSoundFX.volume = 0.3;
+
+let jumpSound = new Audio(`${musicDir}arrow_hit.ogg`);
+jumpSound.volume = 0.3;
+
+let fuelSound = new Audio(`${musicDir}coin.ogg`);
+fuelSound.volume = 0.3;
+
+let crashSound = new Audio(`${musicDir}bomb.ogg`);
+crashSound.volume = 0.5;
+
+let bgMusic = new Audio(`${musicDir}8-bit_nightmare.mp3`);
+bgMusic.volume = 0.2;
+bgMusic.loop = true;
 
 // moving obstacle1 listener
 obstacle1.addEventListener('animationiteration', ()=>{
@@ -65,6 +86,16 @@ fuelCell.addEventListener('animationiteration', ()=>{
 playAgainBtn.addEventListener('click', playAgain);
 body.addEventListener('keydown', jump);
 startBtn.addEventListener('click', startGame);
+soundOnBtn.addEventListener('click', () => {
+    soundOnBtn.classList.add('d-none');
+    soundOffBtn.classList.remove('d-none');
+    bgMusic.pause();
+});
+soundOffBtn.addEventListener('click',() => {
+    soundOffBtn.classList.add('d-none');
+    soundOnBtn.classList.remove('d-none');
+    bgMusic.play();
+ });
 
 // function calls
 
@@ -88,6 +119,7 @@ function jump(event){
     event.preventDefault()
     jumping = 1;
     trackingFuel();
+    jumpSound.play();
     let jumpCount = 0;
     let jumpInterval = setInterval(function(){
         let characterTop = parseInt(window.getComputedStyle(astronaut).getPropertyValue('top'));
@@ -154,6 +186,8 @@ function collisionDetection() {
         fuelP.textContent = `Fuel: ${fuel}%`
         
         fuelCell.style.top = '460px'
+
+        fuelSound.play();
     }
 
     if(astronautOb.y >= 410 || astronautOb.y <= -5){
@@ -168,6 +202,10 @@ function startGame() {
     gravityInterval = setInterval(gravity,10)
     collisionInterval = setInterval(collisionDetection,10);
     highScoreP.textContent = `High Score: ${highScore}`;
+    playBtnSoundFX.play();
+    setTimeout(()=>{
+        bgMusic.play()
+    },700)
 }
 
 function playAgain() {
@@ -178,6 +216,14 @@ function playAgain() {
 }
 
 async function endGame(){
+    // Crash Sound FX
+    crashSound.play();
+    bgMusic.pause();
+    bgMusic.currentTime = 0;
+
+    soundOffBtn.classList.add('d-none');
+    soundOnBtn.classList.remove('d-none');
+
     //removing game area
     gameArea.classList.add('d-none')
     // adding the game-over Screen
