@@ -48,4 +48,4 @@ Evade Asteroids flying towards player. By pressing space bar(or any other key) t
 
 <a href="https://opengameart.org/content/8-bit-jupiter-the-bringer-of-jollity-456">Jupiter 8 Bit</a> by: <a href="https://opengameart.org/users/dizzy-crow"> Dizzy Crow </a> 
 
-<a href="https://opengameart.org/content/monkey-on-mars-share-the-love">Sound Effects</a> by: <a href="https://opengameart.org/users/ba%C5%9Dto"> Baŝto </a> 
+<a href="https://opengameart.org/content/nes-sounds">Sound Effects</a> by: <a href="https://opengameart.org/users/ba%C5%9Dto"> Baŝto </a> 
