@@ -103,8 +103,15 @@
 .game-container{
     visibility: hidden;
 }
+
+#start-game-modal{
+    visibility: hidden;
+}
 @media screen and (min-width: 1000px){
     .game-container{
+        visibility: visible;
+    }
+    #start-game-modal{
         visibility: visible;
     }
 
