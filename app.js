@@ -17,6 +17,10 @@ let soundOnBtn = document.querySelector('#sound-on');
 
 let soundOffBtn = document.querySelector('#sound-off');
 
+// other Elements
+
+const body = document.querySelector('body');
+
 
 //getting Modal
 
@@ -35,6 +39,10 @@ creditsClickSFX.volume = 0.2;
 let bgMusic = new Audio('/assets/music/Lunar-Lander-Jupiter.mp3');
 bgMusic.volume = 0.3;
 bgMusic.loop = true;
+
+// Start BG Music when Hovering
+
+body.addEventListener('mouseover', startMusic);
 
 
 //adding event listener to show and hide with Credit
@@ -66,6 +74,10 @@ creditsBtn.addEventListener('click', () => {
     bgMusic.play();
  });
 
-setTimeout(() => {
-    bgMusic.play();
-},2000);
+ function startMusic() {
+    setTimeout(() => {
+        bgMusic.play();
+    },2000);
+    body.removeEventListener('mouseover', startMusic);
+};
+
