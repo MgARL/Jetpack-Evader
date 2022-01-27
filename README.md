@@ -1,4 +1,4 @@
-# <center>**Jetpack-Evader**</center>
+# <center>**Jetpack Evader**</center>
 
 ## Created by: Miguel Rodriguez
 ***

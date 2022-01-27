@@ -53,10 +53,19 @@ obstacle1.addEventListener('animationiteration', randomPos);
 obstacle2.addEventListener('animationiteration', randomPos);
 
 fuelCell.addEventListener('animationiteration', randomPos);
+
 // Other event listeners
+
+// Play Again button Listener
 playAgainBtn.addEventListener('click', playAgain);
+
+// Jumping Event Listener
 body.addEventListener('keydown', jump);
+
+// Start Game Button Listener
 startBtn.addEventListener('click', startGame);
+
+// Event listeners to Mute/Unmute Music
 soundOnBtn.addEventListener('click', () => {
     soundOnBtn.classList.add('d-none');
     soundOffBtn.classList.remove('d-none');
@@ -72,11 +81,14 @@ soundOffBtn.addEventListener('click',() => {
 
 getHighScore();
 
-// Function Section
+
+
+// Functions Section
 
 // Gravity Function
 
 function gravity(){
+    // getting Astronaut Top Value, and updating it.
     let astronautTop = parseInt(window.getComputedStyle(astronaut).getPropertyValue('top'));
 
     if (jumping === 0){
@@ -87,23 +99,37 @@ function gravity(){
 //Jumping Function
 
 function jump(event){
-    event.preventDefault()
-    jumping = 1;
+    event.preventDefault() // to prevent default actions of certain keys
+
+    jumping = 1; //Change to one in order to stop gravity to affect Astronaut
+
     trackingFuel();
-    jumpSound.play();
-    let jumpCount = 0;
+
+    jumpSound.play();//To Play Jumping sound, Sound has a delay so it doesn't really gets play every time Astronaut Jumps
+
+    
+    let jumpCount = 0;  //To keep track of jumping interval, how many intervals of jumps have happened
+
+    // making a jump interval to simulate jumping animation and track of vertical Astronaut position every 10 Milliseconds
     let jumpInterval = setInterval(function(){
         let characterTop = parseInt(window.getComputedStyle(astronaut).getPropertyValue('top'));
         if((characterTop > -5) && (jumpCount < 15)){
-            astronaut.style.top = (characterTop - 4) + 'px';
-            astronautSprite.style.bottom = '246px';
+            // this will only execute if character is inside the game-area, and its less than 15 intervals of jump.
+            astronaut.style.top = (characterTop - 4) + 'px';//Updating astronaut position
+
+            astronautSprite.style.bottom = '246px';// Moving astronaut Sprite to where the jetpack is lit.
         }
+
         if(jumpCount > 20){
-            clearInterval(jumpInterval)
-            jumping = 0;
-            jumpCount = 0;
-            astronautSprite.style.bottom = '128px'
+            // this will execute after 20 jumping interval, reason is the make the astronaut go up for 15 intervals, stand still for 5, and then finally going back to gravity.
+            // to Simulate a jumping animation.
+            clearInterval(jumpInterval) //clearing jump interval/canceling jump
+            jumping = 0;    //back to 0 so gravity starts again
+            jumpCount = 0;  // resetting the jump intervals
+            astronautSprite.style.bottom = '128px' //Astronaut sprite back to original Position.
         }
+
+        //Adding to Jump COunt in order to progress function, if not in place Astronaut will ascend forever.
         jumpCount++
     }, 10)
 }
@@ -111,6 +137,7 @@ function jump(event){
 // collision detection Function
 function collisionDetection() {
 
+    //Creating an Object with width, height, left and top position of Astronaut, to keep track of Astronaut position in game-area.
     let astronautOb = {
         width: parseInt(window.getComputedStyle(astronaut).getPropertyValue('width')),
         height: parseInt(window.getComputedStyle(astronaut).getPropertyValue('height')),
@@ -118,7 +145,7 @@ function collisionDetection() {
         y: parseInt(window.getComputedStyle(astronaut).getPropertyValue('top'))
     }
 
-
+    //creating another object but with Asteroid 1 info, to keep its position as well.
     let obstacle1Ob ={
         width: parseInt(window.getComputedStyle(obstacle1).getPropertyValue('width')),
         height: parseInt(window.getComputedStyle(obstacle1).getPropertyValue('height')),
@@ -127,13 +154,15 @@ function collisionDetection() {
     }
 
     
-    
+    //creating another object but with Asteroid 2 info, to keep its position as well.
     let obstacle2Ob ={
         width: parseInt(window.getComputedStyle(obstacle2).getPropertyValue('width')),
         height: parseInt(window.getComputedStyle(obstacle2).getPropertyValue('height')),
         x: parseInt(window.getComputedStyle(obstacle2).getPropertyValue('left')) + 120,
         y:  parseInt(window.getComputedStyle(obstacle2).getPropertyValue('top'))
     }
+
+    //creating another object but with fuel info, to keep its position as well.
     let fuelOB = {
         width: parseInt(window.getComputedStyle(fuelCell).getPropertyValue('width')),
         height: parseInt(window.getComputedStyle(fuelCell).getPropertyValue('height')),
@@ -141,62 +170,81 @@ function collisionDetection() {
         y:  parseInt(window.getComputedStyle(fuelCell).getPropertyValue('top'))
     }
     
+    // first collision detection between Astronaut and Asteroid 1, if triggered game over.
     if(astronautOb.x < obstacle1Ob.x + obstacle1Ob.width && astronautOb.x + astronautOb.width > obstacle1Ob.x && astronautOb.y < obstacle1Ob.y + obstacle1Ob.height && astronautOb.y + astronautOb.height > obstacle1Ob.y){
        endGame()
     }
+
+    // Second collision detection between Astronaut and Asteroid 2
     if(astronautOb.x < obstacle2Ob.x + obstacle2Ob.width && astronautOb.x + astronautOb.width > obstacle2Ob.x && astronautOb.y < obstacle2Ob.y + obstacle2Ob.height && astronautOb.y + astronautOb.height > obstacle2Ob.y){
         endGame()
     }
-
+    // Second collision detection between Astronaut and fuel, if triggered fuel will increase depending on score level.
     if(astronautOb.x < fuelOB.x + fuelOB.width && astronautOb.x + astronautOb.width > fuelOB.x && astronautOb.y < fuelOB.y + fuelOB.height && astronautOb.y + astronautOb.height > fuelOB.y){
         if(counter < 15){
+            //if score level is less than 15 fuel will give 30 fuel points
             fuel += 30;
         }else if (counter  >= 15 && counter < 25 ){
+            //if score equals or more than 20 and  less than 25 fuel will give only 20 fuel points
             fuel += 20;
         }else if (counter  >= 25){
+            //if score level is equals or greater than 255 fuel will give 15 fuel points
             fuel += 15;
         }
 
+        // make sure that player does not get more than 100% fuel
         if(fuel > 100){
             fuel = 100;
         }
+        // displaying new fuel levels to player
         fuelP.textContent = `Fuel: ${fuel}%`
         
+        //removing the fuel cell from Astronaut path so it doesn't trigger the collision more than once, also moving the fuel cell out of players vision.
         fuelCell.style.top = '460px'
 
+        // adding sound for whenever player grabs a fuel cell
         fuelSound.play();
     }
 
+    // out of bound detection for Astronaut game over if hits the top or bottom of game-area.
     if(astronautOb.y >= 410 || astronautOb.y <= -5){
         endGame()
     }
 }
 
+//function to start the game
 function startGame() {
-    startGameModal.classList.add('d-none');
-    gameArea.classList.remove('d-none');
-    gravityInterval = setInterval(gravity,10)
-    collisionInterval = setInterval(collisionDetection,10);
-    highScoreP.textContent = `High Score: ${highScore}`;
-    playBtnSoundFX.play();
+    startGameModal.classList.add('d-none'); //removing instructions from view
+    gameArea.classList.remove('d-none'); //Displaying game-area.
+    gravityInterval = setInterval(gravity,10) //starting gravity function with interval so it can affect the astronaut
+
+    //starting the collision detection function, with interval to keep track of every object in movement and detect if they crash into each other
+    collisionInterval = setInterval(collisionDetection,10); 
+
+    highScoreP.textContent = `High Score: ${highScore}`; //Displaying New local if any High score
+    
+    playBtnSoundFX.play(); //SoundFX for when start button is pressed
+
+    // Playing background music, after the play btn soundFX is done playing.
     setTimeout(()=>{
         bgMusic.play()
     },700)
 }
 
 function playAgain() {
-    gameOverModal.classList.add('d-none');
-    gameArea.classList.remove('d-none');
-    startGame();
+    gameOverModal.classList.add('d-none'); //hiding game over screen
+    gameArea.classList.remove('d-none'); //Showing game-area.
+    startGame(); 
 
 }
 
 async function endGame(){
     // Crash Sound FX
     crashSound.play();
-    bgMusic.pause();
-    bgMusic.currentTime = 0;
+    bgMusic.pause();//stopping bg music
+    bgMusic.currentTime = 0; //setting bg music back to beginning
 
+    // Mute Button resetting back to unmute, since music starts playing with start function.
     soundOffBtn.classList.add('d-none');
     soundOnBtn.classList.remove('d-none');
 
@@ -209,9 +257,8 @@ async function endGame(){
     // clearing the collision and gravity intervals
     clearInterval(collisionInterval)
     clearInterval(gravityInterval)
-    // displaying Current Score and Highest Score on game over screen;
 
-    // resetting Animations Back to default
+    // resetting Animations Back to initial
     // asteroid 1
     let ob1CurrentClass = obstacle1.classList;
     obstacle1.classList.remove(ob1CurrentClass);
@@ -227,6 +274,7 @@ async function endGame(){
     fuelCell.classList.remove(fcCurrentClass);
     fuelCell.classList.add('fuelAnimation')
 
+    // displaying Current Score and Highest Score on game over screen;
     // updating highScore and saving to local
     updatingHighScore()
 
@@ -259,8 +307,11 @@ async function endGame(){
 // getting Highest Score Functions
 
 function getHighScore(){
+    // getting High score from local Storage
     let localStorageScore = localStorage.getItem('HighScore');
 
+    // if theres is local storage with High score assign it to highScore
+    // if not let highScore still be 0
     if (localStorageScore !== null){
         localStorageScore = JSON.parse(localStorageScore);
         highScore = localStorageScore
@@ -268,6 +319,7 @@ function getHighScore(){
 }
 
 function updatingHighScore(){
+    // this to be executed only if current score is higher than High Score.
     if (counter > highScore){
         highScore = counter;
 
@@ -279,14 +331,19 @@ function updatingHighScore(){
 
 // Random obstacle place function
 function  randomPos(event){
-    let random = (Math.random()* 354);
-    event.target.style.top = `${random}px`;
+    let random = (Math.random()* 354); //getting a random number between 0 and 350 (height of game area)
+    event.target.style.top = `${random}px`; //Changing current element vertical position before new Animation Iteration starts
+    
+    //Updating score counter  and displaying it after animation iteration finishes
     counter++
     currentScoreP.textContent =`Current Score: ${counter}`
+
+    // Changing Animation Class in order to change animation speed of the objects after level six/
     if (counter >= 6 && counter <= 8){
-        event.target.classList.remove(`${event.target.id}Animation`);
-        event.target.classList.add(`${event.target.id}AnimationLvl2`);
-        if(!adjusted){
+        //added counter <= 8 to to stop removing and adding the animation classes to elements. Only 3 elements.
+        event.target.classList.remove(`${event.target.id}Animation`); //removing initial animation
+        event.target.classList.add(`${event.target.id}AnimationLvl2`); //adding new faster animation
+        if(!adjusted){ //this is used with a weird bug that after updating the animation it will count double the first element.
             counter--
             adjusted = true;
         }
@@ -294,13 +351,16 @@ function  randomPos(event){
 }
 
 function trackingFuel(){
+    // when score is less than 20 every jump will reduce fuel by 2
     if(counter < 20){
         fuel -= 2;
-    }else{
+    }else{ // for everything else every jump will reduce fuel by 4
         fuel -=4;
     }
+    // Displaying Updated fuel tank to Player
     fuelP.textContent = `Fuel: ${fuel}%`
 
+    // if fuel gets to 0 it's Game Over!
     if (fuel <= 0){
         endGame();
     }
