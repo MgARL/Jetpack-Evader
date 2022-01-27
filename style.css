@@ -177,8 +177,8 @@
     }
     #fuel{
         position: relative;
-        top: 0px;
-        left: 780px;
+        top: 385px;
+        left: 945px;
         width: 28px;
         height: 65px;
         /* animation: fuelAnimation 4s linear 1s infinite;  */
@@ -206,7 +206,7 @@
          animation: fuelAnimation 6s linear 1.5s infinite;
     }
     .fuelAnimationLvl2{
-        animation: fuelAnimationLvl2 3.5s linear 1.25s infinite;
+        animation: fuelAnimationLvl2 4s linear 2s infinite;
     }
 
     @keyframes asteroidAnimation{
@@ -222,11 +222,11 @@
             transform: rotate(120deg);}
     }
     @keyframes fuelAnimation {
-        0%{left: 1035px;}
+        0%{left: 945px;}
         100%{left: -255px;}
     }
     @keyframes fuelAnimationLvl2 {
-        0%{left: 780px;}
+        0%{left: 945px;}
         100%{left: -255px;}
     }
     #game-over-modal{

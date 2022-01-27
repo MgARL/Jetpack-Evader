@@ -49,7 +49,7 @@ bgMusic.loop = true;
 
 // moving obstacle1 listener
 obstacle1.addEventListener('animationiteration', ()=>{
-    let random = (Math.random()* 380);
+    let random = (Math.random()* 354);
     obstacle1.style.top = `${random}px`;
     counter++
     currentScoreP.textContent =`Current Score: ${counter}`
@@ -64,7 +64,7 @@ obstacle1.addEventListener('animationiteration', ()=>{
 });
 
 obstacle2.addEventListener('animationiteration', ()=>{
-    let random = (Math.random()* 380);
+    let random = (Math.random()* 354);
     obstacle2.style.top = `${random}px`;
     counter++
     currentScoreP.textContent =`Current Score: ${counter}`
@@ -75,7 +75,7 @@ obstacle2.addEventListener('animationiteration', ()=>{
 });
 
 fuelCell.addEventListener('animationiteration', ()=>{
-    let random = (Math.random()* 380);
+    let random = (Math.random()* 388);
     fuelCell.style.top = `${random}px`;
     if (counter >= 10){
         fuelCell.classList.remove('fuelAnimation');
