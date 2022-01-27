@@ -56,6 +56,7 @@ creditsBtn.addEventListener('click', () => {
      creditsClickSFX.play()
  });
 
+ //event listener to take you to game page, with delay so soundFX can be heard
  playGameBtn.addEventListener('click', (e) => {
     e.preventDefault();
     playSoundFX.play();
@@ -63,6 +64,8 @@ creditsBtn.addEventListener('click', () => {
         window.location.href = "/game.html"
     },700)
  })
+
+//  Listener to mute/Unmute music 
  soundOnBtn.addEventListener('click', () => {
      soundOnBtn.classList.add('d-none');
      soundOffBtn.classList.remove('d-none');
@@ -74,6 +77,7 @@ creditsBtn.addEventListener('click', () => {
     bgMusic.play();
  });
 
+//  bg Music to start after user scrolls ver the page with a delay of 2 secs
  function startMusic() {
     setTimeout(() => {
         bgMusic.play();

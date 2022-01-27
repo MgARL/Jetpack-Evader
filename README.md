@@ -42,10 +42,10 @@ Evade Asteroids flying towards player. By pressing space bar(or any other key) t
 
 **Home-page Music**
 
-<a href="https://opengameart.org/content/8-bit-nightmare">8 Bit Nightmare</a> by: <a href="https://opengameart.org/users/tausdei"> Tausdei </a> 
+<a href="https://opengameart.org/content/8-bit-jupiter-the-bringer-of-jollity-456">Jupiter 8 Bit</a> by: <a href="https://opengameart.org/users/dizzy-crow"> Dizzy Crow </a> 
 
 **Game-page Music**
 
-<a href="https://opengameart.org/content/8-bit-jupiter-the-bringer-of-jollity-456">Jupiter 8 Bit</a> by: <a href="https://opengameart.org/users/dizzy-crow"> Dizzy Crow </a> 
+<a href="https://opengameart.org/content/8-bit-nightmare">8 Bit Nightmare</a> by: <a href="https://opengameart.org/users/tausdei"> Tausdei </a> 
 
 <a href="https://opengameart.org/content/nes-sounds">Sound Effects</a> by: <a href="https://opengameart.org/users/ba%C5%9Dto"> Baŝto </a> 

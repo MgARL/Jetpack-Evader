@@ -77,12 +77,6 @@ soundOffBtn.addEventListener('click',() => {
     bgMusic.play();
  });
 
-// function calls
-
-getHighScore();
-
-
-
 // Functions Section
 
 // Gravity Function
@@ -221,6 +215,8 @@ function startGame() {
     //starting the collision detection function, with interval to keep track of every object in movement and detect if they crash into each other
     collisionInterval = setInterval(collisionDetection,10); 
 
+    //getting high score and displaying it
+    getHighScore();
     highScoreP.textContent = `High Score: ${highScore}`; //Displaying New local if any High score
     
     playBtnSoundFX.play(); //SoundFX for when start button is pressed
@@ -335,15 +331,17 @@ function  randomPos(event){
     event.target.style.top = `${random}px`; //Changing current element vertical position before new Animation Iteration starts
     
     //Updating score counter  and displaying it after animation iteration finishes
-    counter++
-    currentScoreP.textContent =`Current Score: ${counter}`
+    if (event.target.id === 'asteroid' || event.target.id === 'asteroid2'){
+        counter++;
+        currentScoreP.textContent =`Current Score: ${counter}`;
+    }
 
     // Changing Animation Class in order to change animation speed of the objects after level six/
     if (counter >= 6 && counter <= 8){
         //added counter <= 8 to to stop removing and adding the animation classes to elements. Only 3 elements.
         event.target.classList.remove(`${event.target.id}Animation`); //removing initial animation
         event.target.classList.add(`${event.target.id}AnimationLvl2`); //adding new faster animation
-        if(!adjusted){ //this is used with a weird bug that after updating the animation it will count double the first element.
+        if(event.target.id === 'asteroid' && !adjusted){ //this is used with a weird bug that affects Asteroid1 after updating the animation it will count double.
             counter--
             adjusted = true;
         }

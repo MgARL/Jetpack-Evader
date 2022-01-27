@@ -197,16 +197,16 @@
         animation: asteroidAnimation 6s linear 3s infinite;
     }
      .asteroidAnimationLvl2{
-        animation:  asteroidAnimationLvl2 4s infinite 3s linear;
+        animation:  asteroidAnimationLvl2 4s infinite 0.5s linear;
      }
      .asteroid2AnimationLvl2{
-       animation: asteroidAnimationLvl2 4s infinite linear;
+       animation: asteroidAnimationLvl2 4s infinite 1.5s linear;
      }
      .fuelAnimation{
          animation: fuelAnimation 6s linear 1.5s infinite;
     }
     .fuelAnimationLvl2{
-        animation: fuelAnimationLvl2 4s linear 2s infinite;
+        animation: fuelAnimationLvl2 4s linear  infinite;
     }
 
     @keyframes asteroidAnimation{
