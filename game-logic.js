@@ -52,14 +52,7 @@ obstacle1.addEventListener('animationiteration', randomPos);
 
 obstacle2.addEventListener('animationiteration', randomPos);
 
-fuelCell.addEventListener('animationiteration', ()=>{
-    let random = (Math.random()* 388);
-    fuelCell.style.top = `${random}px`;
-    if (counter >= 6 && counter <= 8){
-        fuelCell.classList.remove('fuelAnimation');
-        fuelCell.classList.add('fuelAnimationLvl2');
-    }
-});
+fuelCell.addEventListener('animationiteration', randomPos);
 // Other event listeners
 playAgainBtn.addEventListener('click', playAgain);
 body.addEventListener('keydown', jump);
@@ -175,7 +168,6 @@ function collisionDetection() {
     }
 
     if(astronautOb.y >= 410 || astronautOb.y <= -5){
-        console.log('out of bound')
         endGame()
     }
 }
@@ -314,8 +306,6 @@ function trackingFuel(){
     }
 }
 
-
-console.log(fuelCell.id)
 
 
 // bottom: 128px;  resting pos
