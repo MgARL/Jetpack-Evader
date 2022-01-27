@@ -48,31 +48,9 @@ bgMusic.volume = 0.2;
 bgMusic.loop = true;
 
 // moving obstacle1 listener
-obstacle1.addEventListener('animationiteration', ()=>{
-    let random = (Math.random()* 354);
-    obstacle1.style.top = `${random}px`;
-    counter++
-    currentScoreP.textContent =`Current Score: ${counter}`
-    if (counter >= 6 && counter <= 8){
-        obstacle1.classList.remove('asteroidAnLvl1');
-        obstacle1.classList.add('asteroidAnLvl2');
-        if(!adjusted){
-            counter--
-            adjusted = true;
-        }
-    }
-});
+obstacle1.addEventListener('animationiteration', randomPos);
 
-obstacle2.addEventListener('animationiteration', ()=>{
-    let random = (Math.random()* 354);
-    obstacle2.style.top = `${random}px`;
-    counter++
-    currentScoreP.textContent =`Current Score: ${counter}`
-    if (counter >= 6 && counter <= 8){
-        obstacle2.classList.remove('asteroid2AnLvl1');
-        obstacle2.classList.add('asteroid2AnLvl2');
-    }
-});
+obstacle2.addEventListener('animationiteration', randomPos);
 
 fuelCell.addEventListener('animationiteration', ()=>{
     let random = (Math.random()* 388);
@@ -245,12 +223,12 @@ async function endGame(){
     // asteroid 1
     let ob1CurrentClass = obstacle1.classList;
     obstacle1.classList.remove(ob1CurrentClass);
-    obstacle1.classList.add('asteroidAnLvl1')
+    obstacle1.classList.add('asteroidAnimation')
 
     // asteroid 2
     let ob2CurrentClass = obstacle2.classList;
     obstacle2.classList.remove(ob2CurrentClass);
-    obstacle2.classList.add('asteroid2AnLvl1');
+    obstacle2.classList.add('asteroid2Animation');
     
     // fuel Cell
     let fcCurrentClass = fuelCell.classList;
@@ -308,15 +286,20 @@ function updatingHighScore(){
 }
 
 // Random obstacle place function
-// function  randomPos(event){
-//     let random = (Math.random()* 380);
-//     event.target.style.top = `${random}px`;
-//     if(event.target.id !== 'fuel'){
-//         counter++
-//         currentScoreP.textContent =`Current Score: ${counter}`
-//     }
-//     difficultyCheck(event.target);
-// }
+function  randomPos(event){
+    let random = (Math.random()* 354);
+    event.target.style.top = `${random}px`;
+    counter++
+    currentScoreP.textContent =`Current Score: ${counter}`
+    if (counter >= 6 && counter <= 8){
+        event.target.classList.remove(`${event.target.id}Animation`);
+        event.target.classList.add(`${event.target.id}AnimationLvl2`);
+        if(!adjusted){
+            counter--
+            adjusted = true;
+        }
+    }
+}
 
 function trackingFuel(){
     if(counter < 20){

@@ -190,16 +190,16 @@
         right: 27px;
     }
 
-    .asteroidAnLvl1{
+    .asteroidAnimation{
         animation: asteroidAnimation 6s linear infinite;
     }
-    .asteroid2AnLvl1{
+    .asteroid2Animation{
         animation: asteroidAnimation 6s linear 3s infinite;
     }
-     .asteroidAnLvl2{
+     .asteroidAnimationLvl2{
         animation:  asteroidAnimationLvl2 4s infinite 3s linear;
      }
-     .asteroid2AnLvl2{
+     .asteroid2AnimationLvl2{
        animation: asteroidAnimationLvl2 4s infinite linear;
      }
      .fuelAnimation{
