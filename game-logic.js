@@ -53,7 +53,7 @@ obstacle1.addEventListener('animationiteration', ()=>{
     obstacle1.style.top = `${random}px`;
     counter++
     currentScoreP.textContent =`Current Score: ${counter}`
-    if (counter >= 10){
+    if (counter >= 6 && counter <= 8){
         obstacle1.classList.remove('asteroidAnLvl1');
         obstacle1.classList.add('asteroidAnLvl2');
         if(!adjusted){
@@ -68,7 +68,7 @@ obstacle2.addEventListener('animationiteration', ()=>{
     obstacle2.style.top = `${random}px`;
     counter++
     currentScoreP.textContent =`Current Score: ${counter}`
-    if (counter >= 10){
+    if (counter >= 6 && counter <= 8){
         obstacle2.classList.remove('asteroid2AnLvl1');
         obstacle2.classList.add('asteroid2AnLvl2');
     }
@@ -77,7 +77,7 @@ obstacle2.addEventListener('animationiteration', ()=>{
 fuelCell.addEventListener('animationiteration', ()=>{
     let random = (Math.random()* 388);
     fuelCell.style.top = `${random}px`;
-    if (counter >= 10){
+    if (counter >= 6 && counter <= 8){
         fuelCell.classList.remove('fuelAnimation');
         fuelCell.classList.add('fuelAnimationLvl2');
     }
@@ -178,8 +178,14 @@ function collisionDetection() {
     }
 
     if(astronautOb.x < fuelOB.x + fuelOB.width && astronautOb.x + astronautOb.width > fuelOB.x && astronautOb.y < fuelOB.y + fuelOB.height && astronautOb.y + astronautOb.height > fuelOB.y){
-        
-        fuel += 30;
+        if(counter < 15){
+            fuel += 30;
+        }else if (counter  >= 15 && counter < 25 ){
+            fuel += 20;
+        }else if (counter  >= 25){
+            fuel += 15;
+        }
+
         if(fuel > 100){
             fuel = 100;
         }
@@ -313,29 +319,18 @@ function updatingHighScore(){
 // }
 
 function trackingFuel(){
-    fuel -= 2;
+    if(counter < 20){
+        fuel -= 2;
+    }else{
+        fuel -=4;
+    }
     fuelP.textContent = `Fuel: ${fuel}%`
 
-    if (fuel <=0){
+    if (fuel <= 0){
         endGame();
     }
 }
 
-// function difficultyCheck(element) {
-//     console.log('element: ',element);
-//     console.log('counter: ',counter);
-//     console.log('class list: ',element.classList);
-//     if (counter === 3){
-//        obstacle1.classList.remove('asteroidAnLvl1');
-//        obstacle1.classList.add('asteroidAnLvl2');
-
-//        obstacle2.classList.remove('asteroid2AnLvl2');
-//        if(!adjusted){
-//            counter--
-//            adjusted = true;
-//        }
-//     }
-// }
 
 console.log(fuelCell.id)
 
