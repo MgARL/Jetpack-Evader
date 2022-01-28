@@ -117,7 +117,7 @@
 
     #game-area{
         user-select: none;
-        margin: auto;
+        margin: 0 auto;
         background-color: black;
         width: 1000px;
         height: 450px;

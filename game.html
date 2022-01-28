@@ -10,14 +10,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 </head>
-<body class="game-page bg-dark text-info" id="body">
+<body class="game-page bg-dark text-info d-flex" id="body">
 
-    <main class="container game-container mt-4 text-center d-none">
+    <main class="container game-container mt-4 text-center d-flex flex-column justify-content-sm-center d-none">
         <div class="row mx-5 bg-dark">
             <div class="col-sm-4">
                 <p id="high-score">High Score: 0</p>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4 col-lg-3">
                 <p id="current-score">Current Score: 0</p>
             </div>
             <div class="col-sm-3">
@@ -44,7 +44,7 @@
         </div>
     </div>
 
-    <section class="container modals " id="start-game-modal">
+    <section class="container modals" id="start-game-modal">
         <div class="game-over-content bg-dark text-center text-light p-4">
             <div class="row">
                 <div class="col-sm-12">
