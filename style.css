@@ -242,5 +242,9 @@
         max-width: 860px;
         
     }
+    #get-name-modal{
+        width: 100vw;
+        max-width: 3100px;
+    }
 }
 

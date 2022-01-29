@@ -59,9 +59,6 @@ fuelCell.addEventListener('animationiteration', randomPos);
 // Play Again button Listener
 playAgainBtn.addEventListener('click', playAgain);
 
-// Jumping Event Listener
-body.addEventListener('keydown', jump);
-
 // Start Game Button Listener
 startBtn.addEventListener('click', startGame);
 
@@ -208,6 +205,9 @@ function collisionDetection() {
 
 //function to start the game
 function startGame() {
+    // Jumping Event Listener
+    body.addEventListener('keydown', jump);
+
     startGameModal.classList.add('d-none'); //removing instructions from view
     gameArea.classList.remove('d-none'); //Displaying game-area.
     gravityInterval = setInterval(gravity,10) //starting gravity function with interval so it can affect the astronaut
@@ -234,7 +234,7 @@ function playAgain() {
 
 }
 
-async function endGame(){
+function endGame(){
     // Crash Sound FX
     crashSound.play();
     bgMusic.pause();//stopping bg music
@@ -243,6 +243,9 @@ async function endGame(){
     // Mute Button resetting back to unmute, since music starts playing with start function.
     soundOffBtn.classList.add('d-none');
     soundOnBtn.classList.remove('d-none');
+
+    //removing event listenr to jump
+    body.removeEventListener('keydown', jump);
 
     //removing game area
     gameArea.classList.add('d-none')
@@ -273,6 +276,7 @@ async function endGame(){
     // displaying Current Score and Highest Score on game over screen;
     // updating highScore and saving to local
     updatingHighScore()
+    updatingLeaderBoard()
 
 
     // get the HTML elements to display this
@@ -362,6 +366,68 @@ function trackingFuel(){
     if (fuel <= 0){
         endGame();
     }
+}
+
+// function to compare current score against leader board
+// importing leaderBoard from  leaderBoard.js
+import { leaderBoard } from '/leaderBoard.js'
+
+function updatingLeaderBoard(){
+    // Check for new LeaderBoard on the Local Storage;
+    let lBString = localStorage.getItem('leaderBoard');
+
+    if (lBString !== null){ // If there is a local leaderBoard this will be parsing it into an Array and then saving it a the leader board.
+        lBString = JSON.parse(lBString);
+        leaderBoard = lBString;
+    };
+    //comparing current score against each player in LB
+    // will compare from first places onwards, once its greater than one of the place will need to stop the loop to prevent it from saving into other placements.
+    for(let i = 0; i < leaderBoard.length; i++){//Using for loop instead of array methods because I need to stop loop.
+        if(counter > leaderBoard[i].score){
+            getPlayerName(i, counter);
+            return
+        }
+    }
+}
+
+function getPlayerName(i, counter){
+//  submit-name-btn need the index and counter
+//hide the game over screen and show the get name screen.
+gameOverModal.classList.add('d-none');
+let getNameModal = document.querySelector('#get-name-modal');
+getNameModal.classList.remove('d-none');
+
+//getting the input field and the submit button
+let nameInput = document.querySelector('#name-input');
+
+let submitNameBtn = document.querySelector('#submit-name-btn');
+
+//event listener for when the name is submitted
+submitNameBtn.addEventListener('click', () => {
+    //create an Object to match the LB Array Objects
+    let newPlayer = {
+        name: nameInput.value,
+        score: counter
+    }
+    
+    // inserting the new ob into the Array
+    leaderBoard.splice(i, 0, newPlayer);
+
+    //removing last item form Array;
+    leaderBoard.pop();
+
+    //saving leader board to local
+    let newLDBString = JSON.stringify(leaderBoard);
+
+    localStorage.setItem('leaderBoard', newLDBString);
+
+    // removing the getNameModal and Displaying game over screen;
+
+    getNameModal.classList.add('d-none');
+    gameOverModal.classList.remove('d-none');
+})
+
+
 }
 
 

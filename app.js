@@ -49,6 +49,7 @@ bgMusic.loop = true;
 // Start BG Music when Hovering
 
 body.addEventListener('mouseover', startMusic);
+displayData();
 
 
 //adding event listener to show and hide with Credits
@@ -65,7 +66,6 @@ creditsBtn.addEventListener('click', () => {
  //adding event listener to show and hide with LeaderBoard
 
  leadersBtn.addEventListener('click', () => {
-    displayData();
     leaderBoardModal.classList.remove('d-none');
     creditsClickSFX.play()
  });
