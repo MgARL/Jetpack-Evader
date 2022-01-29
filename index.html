@@ -12,7 +12,7 @@
 </head>
 <body class="d-flex align-items-center flex-wrap justify-content-center main-page bg-dark text-info">
 
-    <!-- This Container will show on phone during Portrait mode only -->
+    <!-- This Container will show on phone mode only -->
     <div class="mobile-container container">
         <div class="row text-center">
             <h3>THIS GAME IS MEANT TO BE PLAYED ON A COMPUTER BROWSER</h3>
@@ -32,8 +32,11 @@
                 </div>
             </div>
             <div class="row mb-5">
-                <div class="col-sm-12">
-                    <button id="creditsBtn" class="btn btn-primary">Credits</button>
+                <div class="col-sm-6">
+                    <button id="creditsBtn" class="btn btn-primary w-50">Credits</button>
+                </div>
+                <div class="col-sm-6">
+                    <button id="leader-btn" class="btn btn-primary">Leader Board</button>
                 </div>
             </div>
             <div class="row">
@@ -47,7 +50,7 @@
     </main>
     
     <!-- Modals for Leader board -->
-    <!-- <section id="modal-leader-board" class="d-flex justify-content-center d-none modals">
+    <section id="modal-leader-board" class="d-flex justify-content-center modals d-none">
         <div id="modal-content-lb" class="w-25">
             <table class="table table-striped table-primary">
                 <thead>
@@ -65,7 +68,7 @@
                 <button id="close-modal-ld"class="btn btn-danger">Close</button>
             </div>
         </div>
-    </section> -->
+    </section>
 
     <!-- Modal for credits -->
     <section id="modal-credits" class="d-flex justify-content-center d-none text-light">
