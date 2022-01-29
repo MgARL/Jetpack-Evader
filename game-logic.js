@@ -22,11 +22,14 @@ let fuelP = document.querySelector("#fuel-display");
 let gameArea = document.querySelector('.game-container ');
 let gameOverModal = document.querySelector('#game-over-modal');
 let startGameModal = document.querySelector('#start-game-modal');
+let getNameModal = document.querySelector('#get-name-modal');
 const playAgainBtn = document.querySelector('#play-again-btn');
 const body = document.querySelector('#body');
 const startBtn = document.querySelector('#start-btn');
 let soundOnBtn = document.querySelector('#sound-on');
 let soundOffBtn = document.querySelector('#sound-off');
+let nameInput = document.querySelector('#name-input');
+let submitNameBtn = document.querySelector('#submit-name-btn');
 
 // Creating Sound and Music Objects
 const musicDir = '/assets/music/'
@@ -273,9 +276,9 @@ function endGame(){
     fuelCell.classList.remove(fcCurrentClass);
     fuelCell.classList.add('fuelAnimation')
 
-    // displaying Current Score and Highest Score on game over screen;
     // updating highScore and saving to local
     updatingHighScore()
+    // displaying Current Score and Highest Score on game over screen;
     updatingLeaderBoard()
 
 
@@ -345,10 +348,6 @@ function  randomPos(event){
         //added counter <= 8 to to stop removing and adding the animation classes to elements. Only 3 elements.
         event.target.classList.remove(`${event.target.id}Animation`); //removing initial animation
         event.target.classList.add(`${event.target.id}AnimationLvl2`); //adding new faster animation
-        if(event.target.id === 'asteroid' && !adjusted){ //this is used with a weird bug that affects Asteroid1 after updating the animation it will count double.
-            counter--
-            adjusted = true;
-        }
     }
 }
 
@@ -371,19 +370,15 @@ function trackingFuel(){
 // function to compare current score against leader board
 // importing leaderBoard from  leaderBoard.js
 import { leaderBoard } from '/leaderBoard.js'
+let leaderBoard1 = leaderBoard;
 
 function updatingLeaderBoard(){
-    // Check for new LeaderBoard on the Local Storage;
-    let lBString = localStorage.getItem('leaderBoard');
 
-    if (lBString !== null){ // If there is a local leaderBoard this will be parsing it into an Array and then saving it a the leader board.
-        lBString = JSON.parse(lBString);
-        leaderBoard = lBString;
-    };
-    //comparing current score against each player in LB
+    // function to compare current score against leader board
+    // comparing current score against each player in LB
     // will compare from first places onwards, once its greater than one of the place will need to stop the loop to prevent it from saving into other placements.
-    for(let i = 0; i < leaderBoard.length; i++){//Using for loop instead of array methods because I need to stop loop.
-        if(counter > leaderBoard[i].score){
+    for(let i = 0; i < leaderBoard1.length; i++){//Using for loop instead of array methods because I need to stop loop.
+        if(counter > leaderBoard1[i].score){
             getPlayerName(i, counter);
             return
         }
@@ -394,13 +389,7 @@ function getPlayerName(i, counter){
 //  submit-name-btn need the index and counter
 //hide the game over screen and show the get name screen.
 gameOverModal.classList.add('d-none');
-let getNameModal = document.querySelector('#get-name-modal');
 getNameModal.classList.remove('d-none');
-
-//getting the input field and the submit button
-let nameInput = document.querySelector('#name-input');
-
-let submitNameBtn = document.querySelector('#submit-name-btn');
 
 //event listener for when the name is submitted
 submitNameBtn.addEventListener('click', () => {
@@ -409,15 +398,17 @@ submitNameBtn.addEventListener('click', () => {
         name: nameInput.value,
         score: counter
     }
-    
+     console.log(newPlayer);
+     console.log(leaderBoard1);
+
     // inserting the new ob into the Array
-    leaderBoard.splice(i, 0, newPlayer);
+    leaderBoard1.splice(i, 0, newPlayer);
 
     //removing last item form Array;
-    leaderBoard.pop();
+    leaderBoard1.splice(-1,1);
 
     //saving leader board to local
-    let newLDBString = JSON.stringify(leaderBoard);
+    let newLDBString = JSON.stringify(leaderBoard1);
 
     localStorage.setItem('leaderBoard', newLDBString);
 
@@ -426,8 +417,6 @@ submitNameBtn.addEventListener('click', () => {
     getNameModal.classList.add('d-none');
     gameOverModal.classList.remove('d-none');
 })
-
-
 }
 
 
