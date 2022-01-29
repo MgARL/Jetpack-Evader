@@ -5,10 +5,11 @@ let counter = 0;
 let highScore = 0;
 let jumping = 0;
 let fuel = 100;
-let collisionCount = 0;
 let gravityInterval = null;
 let collisionInterval = null;
 let adjusted = false;
+let indexSubmit = null;
+let leaderScore = null;
 
 // Dom Objects
 let astronaut = document.querySelector('#character');
@@ -370,15 +371,15 @@ function trackingFuel(){
 // function to compare current score against leader board
 // importing leaderBoard from  leaderBoard.js
 import { leaderBoard } from '/leaderBoard.js'
-let leaderBoard1 = leaderBoard;
+// let leaderBoard1 = leaderBoard;
 
 function updatingLeaderBoard(){
 
     // function to compare current score against leader board
     // comparing current score against each player in LB
     // will compare from first places onwards, once its greater than one of the place will need to stop the loop to prevent it from saving into other placements.
-    for(let i = 0; i < leaderBoard1.length; i++){//Using for loop instead of array methods because I need to stop loop.
-        if(counter > leaderBoard1[i].score){
+    for(let i = 0; i < leaderBoard.length; i++){//Using for loop instead of array methods because I need to stop loop.
+        if(counter > leaderBoard[i].score){
             getPlayerName(i, counter);
             return
         }
@@ -391,24 +392,32 @@ function getPlayerName(i, counter){
 gameOverModal.classList.add('d-none');
 getNameModal.classList.remove('d-none');
 
+indexSubmit = i;
+
+leaderScore = counter;
+
 //event listener for when the name is submitted
-submitNameBtn.addEventListener('click', () => {
-    //create an Object to match the LB Array Objects
+submitNameBtn.addEventListener('click', handleSubmitClick)
+}
+ function handleSubmitClick() {
+     //create an Object to match the LB Array Objects
     let newPlayer = {
         name: nameInput.value,
-        score: counter
+        score: leaderScore
     }
      console.log(newPlayer);
-     console.log(leaderBoard1);
+     console.log(leaderBoard);
 
     // inserting the new ob into the Array
-    leaderBoard1.splice(i, 0, newPlayer);
+    leaderBoard.splice(indexSubmit, 0, newPlayer);
+    console.log('added current player:', leaderBoard);
 
     //removing last item form Array;
-    leaderBoard1.splice(-1,1);
+    leaderBoard.splice(-1,1);
+    console.log('Removed last item', leaderBoard);
 
     //saving leader board to local
-    let newLDBString = JSON.stringify(leaderBoard1);
+    let newLDBString = JSON.stringify(leaderBoard);
 
     localStorage.setItem('leaderBoard', newLDBString);
 
@@ -416,9 +425,9 @@ submitNameBtn.addEventListener('click', () => {
 
     getNameModal.classList.add('d-none');
     gameOverModal.classList.remove('d-none');
-})
-}
 
+    submitNameBtn.removeEventListener('click', handleSubmitClick);
+ }
 
 
 // bottom: 128px;  resting pos
