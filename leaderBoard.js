@@ -1,5 +1,5 @@
 // hard-coding Leader Board;
-let leaderBoard = [{
+let leaderBoard1 = [{
     name: 'Miguel',
     score: '30'
 },{
@@ -21,8 +21,8 @@ let lBString = localStorage.getItem('leaderBoard');
 
 if (lBString !== null){ // If there is a local leaderBoard parsing it into object and then saving it a the leader board.
     lBString = JSON.parse(lBString);
-    leaderBoard = lBString;
+    leaderBoard1 = lBString;
 };
 
 // exporting it to use it in the index and game-logic scripts.
-export { leaderBoard };
+export { leaderBoard1 };

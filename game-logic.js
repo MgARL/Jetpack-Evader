@@ -211,6 +211,7 @@ function collisionDetection() {
 function startGame() {
     // Jumping Event Listener
     body.addEventListener('keydown', jump);
+    getDB()
 
     startGameModal.classList.add('d-none'); //removing instructions from view
     gameArea.classList.remove('d-none'); //Displaying game-area.
@@ -369,9 +370,24 @@ function trackingFuel(){
 }
 
 // function to compare current score against leader board
-// importing leaderBoard from  leaderBoard.js
-import { leaderBoard } from '/leaderBoard.js'
-// let leaderBoard1 = leaderBoard;
+// importing leaderBoard from  leaderBoard.js or DB
+import { leaderBoard1 } from '/leaderBoard.js'
+let leaderBoard = leaderBoard1
+
+async function getDB(){
+    try{
+        const response = await fetch('http://localhost:3000/jetpack-scores')
+        if(response !== null){
+            
+            let parsedRes = await response.json();
+    
+            leaderBoard = Object.values(parsedRes)
+        }
+    }
+    catch (err){
+        console.error(err)
+    }
+}
 
 function updatingLeaderBoard(){
 
@@ -399,7 +415,7 @@ leaderScore = counter;
 //event listener for when the name is submitted
 submitNameBtn.addEventListener('click', handleSubmitClick)
 }
- function handleSubmitClick() {
+ async function handleSubmitClick() {
      //create an Object to match the LB Array Objects
     let newPlayer = {
         name: nameInput.value,
@@ -416,10 +432,24 @@ submitNameBtn.addEventListener('click', handleSubmitClick)
     leaderBoard.splice(-1,1);
     console.log('Removed last item', leaderBoard);
 
-    //saving leader board to local
+    //saving leader board to db
     let newLDBString = JSON.stringify(leaderBoard);
 
-    localStorage.setItem('leaderBoard', newLDBString);
+    try{
+        const response = await fetch('http://localhost:3000/jetpack-scores', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: newLDBString
+        })
+        console.log(JSON.parse(response.body));
+    } 
+    catch (err){
+        console.error(err + "SORRY")
+        localStorage.setItem('leaderBoard', newLDBString);
+    }
+
 
     // removing the getNameModal and Displaying game over screen;
 

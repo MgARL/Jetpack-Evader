@@ -49,7 +49,7 @@ bgMusic.loop = true;
 // Start BG Music when Hovering
 
 body.addEventListener('mouseover', startMusic);
-displayData();
+getDB()
 
 
 //adding event listener to show and hide with Credits
@@ -106,11 +106,37 @@ creditsBtn.addEventListener('click', () => {
 
 // Adding the Leader Board
 
-import { leaderBoard } from "./leaderBoard.js";
+
+import { leaderBoard1 } from '/leaderBoard.js'
+let leaderBoard = leaderBoard1
+
+
+
+//getting DB from DB
+
+async function getDB(){
+    try{
+        const response = await fetch('http://localhost:3000/jetpack-scores')
+        if(response !== null){
+            
+            let parsedRes = await response.json();
+    
+            leaderBoard = Object.values(parsedRes)
+    
+            displayData()
+            return
+        }
+    }
+    catch (err){
+        console.error(err)
+        displayData()
+    }
+}
 
 //adding the leader board to the leader-board Modal
 
-function displayData(){
+async function displayData(){
+
 
     let tbody = document.querySelector('#tbody'); //getting the table body to append the scores.
     
@@ -140,4 +166,6 @@ function displayData(){
         })
     })
 }
+
+
 
