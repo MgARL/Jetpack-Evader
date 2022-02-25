@@ -10,6 +10,7 @@ let collisionInterval = null;
 let adjusted = false;
 let indexSubmit = null;
 let leaderScore = null;
+let gotFromDB = false;
 
 // Dom Objects
 let astronaut = document.querySelector('#character');
@@ -382,6 +383,8 @@ async function getDB(){
             let parsedRes = await response.json();
     
             leaderBoard = Object.values(parsedRes)
+
+            gotFromDB = true;
         }
     }
     catch (err){
@@ -421,8 +424,6 @@ submitNameBtn.addEventListener('click', handleSubmitClick)
         name: nameInput.value,
         score: leaderScore
     }
-     console.log(newPlayer);
-     console.log(leaderBoard);
 
     // inserting the new ob into the Array
     leaderBoard.splice(indexSubmit, 0, newPlayer);
@@ -434,19 +435,22 @@ submitNameBtn.addEventListener('click', handleSubmitClick)
 
     //saving leader board to db
     let newLDBString = JSON.stringify(leaderBoard);
-
-    try{
-        const response = await fetch('https://proxy-server-db.herokuapp.com/jetpack-scores', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json',
-            },
-            body: newLDBString
-        })
-        console.log(JSON.parse(response.body));
-    } 
-    catch (err){
-        console.error(err + "SORRY")
+    if(gotFromDB){
+        try{
+            const response = await fetch('https://proxy-server-db.herokuapp.com/jetpack-scores', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: newLDBString
+            })
+            console.log(JSON.parse(response.body));
+        } 
+        catch (err){
+            console.error(err + "SORRY")
+            localStorage.setItem('leaderBoard', newLDBString);
+        }
+    }else {
         localStorage.setItem('leaderBoard', newLDBString);
     }
 
