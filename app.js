@@ -116,7 +116,7 @@ let leaderBoard = leaderBoard1
 
 async function getDB(){
     try{
-        const response = await fetch('https://proxy-server-db.herokuapp.com/jetpack-scores')
+        const response = await fetch('https://jetpack-evader-back-end.herokuapp.com/scores')
         if(response !== null){
             
             let parsedRes = await response.json();
