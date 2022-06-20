@@ -1,0 +1,256 @@
+/* FONTS imports*/
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+/* font-family: 'Press Start 2P', cursive; */
+@import url("https://fonts.googleapis.com/css2?family=Bungee&display=swap");
+/* font-family: 'Bungee', cursive; */
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&display=swap");
+/* font-family: 'Audiowide', cursive; */
+/* HOME PAGE STYLES */
+* {
+  font-family: "Audiowide", cursive;
+}
+
+#modal-credits a {
+  text-decoration: none;
+  color: #0DCAF0;
+}
+#modal-credits a:hover {
+  color: rgb(252, 155, 76);
+}
+
+#modal-credits {
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.247);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  /* height: 100vh; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-page {
+  height: 100vh;
+}
+
+.main-container {
+  display: none;
+}
+
+.title {
+  font-family: "Press Start 2P", cursive;
+  font-size: 2em;
+}
+
+.modals {
+  background: rgba(0, 0, 0, 0.247);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#modal-content-lb {
+  background: #CFE2FF;
+}
+
+.modal-content-credits {
+  background-color: #212529;
+  margin: 0rem 2rem;
+  padding: 2rem;
+}
+
+.btn-close-modal {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 0.5em;
+  margin-right: 0.3em;
+}
+
+.sound-container {
+  overflow: hidden;
+  width: 30px;
+}
+.sound-container #sound-off {
+  position: relative;
+  right: 30px;
+}
+
+@media screen and (min-width: 1000px) {
+  .main-container {
+    display: block;
+  }
+  .mobile-container {
+    display: none;
+  }
+}
+/* Game Page Styles */
+.game-page {
+  height: 100vh;
+}
+
+.game-container {
+  visibility: hidden;
+}
+
+#start-game-modal {
+  visibility: hidden;
+}
+
+@media screen and (min-width: 1000px) {
+  .game-container {
+    visibility: visible;
+  }
+  #start-game-modal {
+    visibility: visible;
+  }
+  #game-area {
+    user-select: none;
+    margin: 0 auto;
+    background-color: black;
+    width: 1000px;
+    height: 450px;
+    overflow: hidden;
+    background-image: url(/assets/Background-2.jpg);
+    background-size: cover;
+  }
+  #character {
+    z-index: 1;
+    height: 55px;
+    width: 35px;
+    /* background-color: yellow; */
+    position: relative;
+    top: 200px;
+    left: 50px;
+    overflow: hidden;
+  }
+  #character-sprite {
+    width: 420px;
+    position: relative;
+    bottom: 128px;
+    right: 360px;
+  }
+  #asteroid {
+    z-index: 1;
+    height: 90px;
+    width: 90px;
+    /* background-color: tomato; */
+    position: relative;
+    left: 1000px;
+    top: 300px;
+  }
+  #asteroid-sprite1 {
+    width: 270px;
+    position: relative;
+    bottom: 50px;
+    right: 105px;
+  }
+  #asteroid2 {
+    z-index: 1;
+    height: 90px;
+    width: 100px;
+    /* background-color: tomato;ww */
+    position: relative;
+    left: 1000px;
+    top: 50px;
+  }
+  #asteroid-sprite2 {
+    width: 280px;
+    position: relative;
+    bottom: 60px;
+    right: 90px;
+    transform: rotate(180deg);
+  }
+  #fuel {
+    position: relative;
+    top: 385px;
+    left: 945px;
+    width: 28px;
+    height: 65px;
+    /* animation: fuelAnimation 4s linear 1s infinite;  */
+  }
+  #fuel-sprite {
+    height: 80px;
+    position: relative;
+    bottom: 5px;
+    right: 27px;
+  }
+  .asteroidAnimation {
+    animation: asteroidAnimation 6s linear infinite;
+  }
+  .asteroid2Animation {
+    animation: asteroidAnimation 6s linear 3s infinite;
+  }
+  .asteroidAnimationLvl2 {
+    animation: asteroidAnimationLvl2 4s infinite 0.5s linear;
+  }
+  .asteroid2AnimationLvl2 {
+    animation: asteroidAnimationLvl2 4s infinite 1.5s linear;
+  }
+  .fuelAnimation {
+    animation: fuelAnimation 6s linear 1.5s infinite;
+  }
+  .fuelAnimationLvl2 {
+    animation: fuelAnimationLvl2 4s linear infinite;
+  }
+  @keyframes asteroidAnimation {
+    0% {
+      left: 1000px;
+      transform: rotate(0deg);
+    }
+    100% {
+      left: -200px;
+      transform: rotate(120deg);
+    }
+  }
+  @keyframes asteroidAnimationLvl2 {
+    0% {
+      left: 1000px;
+      transform: rotate(0deg);
+    }
+    100% {
+      left: -200px;
+      transform: rotate(120deg);
+    }
+  }
+  @keyframes fuelAnimation {
+    0% {
+      left: 945px;
+    }
+    100% {
+      left: -255px;
+    }
+  }
+  @keyframes fuelAnimationLvl2 {
+    0% {
+      left: 945px;
+    }
+    100% {
+      left: -255px;
+    }
+  }
+  #game-over-modal {
+    width: 100vw;
+    max-width: 3100px;
+  }
+  #start-game-modal {
+    width: 100vw;
+    max-width: 3100px;
+  }
+  .game-over-content {
+    width: 60%;
+    max-width: 860px;
+  }
+  #get-name-modal {
+    width: 100vw;
+    max-width: 3100px;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

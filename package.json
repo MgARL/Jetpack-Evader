@@ -1,0 +1,24 @@
+{
+  "name": "jetpack-evader",
+  "version": "1.0.0",
+  "description": "## Created by: Miguel Rodriguez *** Inspiration Game: Flappy Bird",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass_c": "sass scss/style.scss css/style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MgARL/Jetpack-Evader.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MgARL/Jetpack-Evader/issues"
+  },
+  "homepage": "https://github.com/MgARL/Jetpack-Evader#readme",
+  "dependencies": {
+    "sass": "^1.52.3"
+  }
+}

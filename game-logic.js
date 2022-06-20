@@ -7,7 +7,6 @@ let jumping = 0;
 let fuel = 100;
 let gravityInterval = null;
 let collisionInterval = null;
-let adjusted = false;
 let indexSubmit = null;
 let leaderScore = null;
 let gotFromDB = false;
