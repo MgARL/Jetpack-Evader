@@ -1,5 +1,15 @@
+// Object Interface
+interface Player {
+    name: string,
+    score: string
+}
+
+// tuple
+type LeaderBoard = [Player, Player, Player, Player, Player]
+
 // hard-coding Leader Board;
-let leaderBoard1 = [{
+
+let leaderBoard1: LeaderBoard = [{
     name: 'Miguel',
     score: '30'
 },{
@@ -16,13 +26,14 @@ let leaderBoard1 = [{
     score: '3'
 }];
 
+
 // Get Leader-board From local if there is any.
 let lBString = localStorage.getItem('leaderBoard');
 
 if (lBString !== null){ // If there is a local leaderBoard parsing it into object and then saving it a the leader board.
-    lBString = JSON.parse(lBString);
-    leaderBoard1 = lBString;
+    const parsedString : LeaderBoard = JSON.parse(lBString);
+    leaderBoard1 = parsedString;
 };
 
 // exporting it to use it in the index and game-logic scripts.
-export { leaderBoard1 };
+export { leaderBoard1, Player, LeaderBoard };

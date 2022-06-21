@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/MgARL/Jetpack-Evader#readme",
   "dependencies": {
-    "sass": "^1.52.3"
+    "sass": "^1.52.3",
+    "typescript": "^4.7.4"
   }
 }
