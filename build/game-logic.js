@@ -1,14 +1,23 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+// Imports
+import { leaderBoardTuple } from './leaderBoardTuple.js';
 // Some Global Variables we might need
 let counter = 0;
 let highScore = 0;
 let jumping = 0;
 let fuel = 100;
-let gravityInterval = null;
-let collisionInterval = null;
-let indexSubmit = null;
-let leaderScore = null;
+let gravityInterval;
+let collisionInterval;
+let indexSubmit;
+let leaderScore;
 let gotFromDB = false;
 // Dom Objects
 let astronaut = document.querySelector('#character');
@@ -210,15 +219,15 @@ function endGame() {
     clearInterval(gravityInterval);
     // resetting Animations Back to initial
     // asteroid 1
-    let ob1CurrentClass = obstacle1.classList;
+    let ob1CurrentClass = obstacle1.classList.value;
     obstacle1.classList.remove(ob1CurrentClass);
     obstacle1.classList.add('asteroidAnimation');
     // asteroid 2
-    let ob2CurrentClass = obstacle2.classList;
+    let ob2CurrentClass = obstacle2.classList.value;
     obstacle2.classList.remove(ob2CurrentClass);
     obstacle2.classList.add('asteroid2Animation');
     // fuel Cell
-    let fcCurrentClass = fuelCell.classList;
+    let fcCurrentClass = fuelCell.classList.value;
     fuelCell.classList.remove(fcCurrentClass);
     fuelCell.classList.add('fuelAnimation');
     // updating highScore and saving to local
@@ -246,8 +255,8 @@ function getHighScore() {
     // if theres is local storage with High score assign it to highScore
     // if not let highScore still be 0
     if (localStorageScore !== null) {
-        localStorageScore = JSON.parse(localStorageScore);
-        highScore = localStorageScore;
+        let parsedLocalStorageScore = parseInt(JSON.parse(localStorageScore));
+        highScore = parsedLocalStorageScore;
     }
 }
 function updatingHighScore() {
@@ -292,20 +301,22 @@ function trackingFuel() {
 }
 // function to compare current score against leader board
 // importing leaderBoard from  leaderBoard.js or DB
-const leaderBoard_js_1 = require("/leaderBoard.js");
-let leaderBoard = leaderBoard_js_1.leaderBoard1;
-async function getDB() {
-    try {
-        const response = await fetch('https://jetpack-evader-back-end.herokuapp.com/scores');
-        if (response !== null) {
-            let parsedRes = await response.json();
-            leaderBoard = Object.values(parsedRes);
-            gotFromDB = true;
+import { leaderBoard1 } from './leaderBoard.js';
+let leaderBoard = leaderBoard1;
+function getDB() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const response = yield fetch('https://jetpack-evader-back-end.herokuapp.com/scores');
+            if (response !== null) {
+                let parsedRes = yield response.json();
+                leaderBoard = leaderBoardTuple(parsedRes);
+                gotFromDB = true;
+            }
         }
-    }
-    catch (err) {
-        console.error(err);
-    }
+        catch (err) {
+            console.error(err);
+        }
+    });
 }
 function updatingLeaderBoard() {
     // function to compare current score against leader board
@@ -328,43 +339,44 @@ function getPlayerName(i, counter) {
     //event listener for when the name is submitted
     submitNameBtn.addEventListener('click', handleSubmitClick);
 }
-async function handleSubmitClick() {
-    //create an Object to match the LB Array Objects
-    let newPlayer = {
-        name: nameInput.value,
-        score: leaderScore
-    };
-    // inserting the new ob into the Array
-    leaderBoard.splice(indexSubmit, 0, newPlayer);
-    console.log('added current player:', leaderBoard);
-    //removing last item form Array;
-    leaderBoard.splice(-1, 1);
-    console.log('Removed last item', leaderBoard);
-    //saving leader board to db
-    let newLDBString = JSON.stringify(leaderBoard);
-    if (gotFromDB) {
-        try {
-            const response = await fetch('https://jetpack-evader-back-end.herokuapp.com/scores', {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json',
-                },
-                body: newLDBString
-            });
-            console.log(JSON.parse(response.body));
+function handleSubmitClick() {
+    return __awaiter(this, void 0, void 0, function* () {
+        //create an Object to match the LB Array Objects
+        let newPlayer = {
+            name: nameInput.value,
+            score: leaderScore
+        };
+        // inserting the new ob into the Array
+        leaderBoard.splice(indexSubmit, 0, newPlayer);
+        console.log('added current player:', leaderBoard);
+        //removing last item form Array;
+        leaderBoard.splice(-1, 1);
+        console.log('Removed last item', leaderBoard);
+        //saving leader board to db
+        let newLDBString = JSON.stringify(leaderBoard);
+        if (gotFromDB) {
+            try {
+                const response = yield fetch('https://jetpack-evader-back-end.herokuapp.com/scores', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json',
+                    },
+                    body: newLDBString
+                });
+            }
+            catch (err) {
+                console.error(err + "SORRY");
+                localStorage.setItem('leaderBoard', newLDBString);
+            }
         }
-        catch (err) {
-            console.error(err + "SORRY");
+        else {
             localStorage.setItem('leaderBoard', newLDBString);
         }
-    }
-    else {
-        localStorage.setItem('leaderBoard', newLDBString);
-    }
-    // removing the getNameModal and Displaying game over screen;
-    getNameModal.classList.add('d-none');
-    gameOverModal.classList.remove('d-none');
-    submitNameBtn.removeEventListener('click', handleSubmitClick);
+        // removing the getNameModal and Displaying game over screen;
+        getNameModal.classList.add('d-none');
+        gameOverModal.classList.remove('d-none');
+        submitNameBtn.removeEventListener('click', handleSubmitClick);
+    });
 }
 // bottom: 128px;  resting pos
 // right: 360px;

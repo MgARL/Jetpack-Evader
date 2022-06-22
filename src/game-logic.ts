@@ -1,36 +1,37 @@
-
+// Imports
+import { leaderBoardTuple } from './leaderBoardTuple'
 
 // Some Global Variables we might need
 let counter = 0;
-let highScore = 0;
+let highScore: number = 0;
 let jumping = 0;
 let fuel = 100;
-let gravityInterval = null;
-let collisionInterval = null;
-let indexSubmit = null;
-let leaderScore = null;
+let gravityInterval: number;
+let collisionInterval: number;
+let indexSubmit: number;
+let leaderScore: number;
 let gotFromDB = false;
 
 // Dom Objects
-let astronaut = document.querySelector('#character');
-let astronautSprite = document.querySelector('#character-sprite');
-let obstacle1 = document.querySelector('#asteroid');
-let obstacle2 = document.querySelector('#asteroid2');
-let fuelCell = document.querySelector('#fuel');
-let currentScoreP = document.querySelector('#current-score');
-let highScoreP = document.querySelector('#high-score');
-let fuelP = document.querySelector("#fuel-display");
-let gameArea = document.querySelector('.game-container ');
-let gameOverModal = document.querySelector('#game-over-modal');
-let startGameModal = document.querySelector('#start-game-modal');
-let getNameModal = document.querySelector('#get-name-modal');
-const playAgainBtn = document.querySelector('#play-again-btn');
-const body = document.querySelector('#body');
-const startBtn = document.querySelector('#start-btn');
-let soundOnBtn = document.querySelector('#sound-on');
-let soundOffBtn = document.querySelector('#sound-off');
-let nameInput = document.querySelector('#name-input');
-let submitNameBtn = document.querySelector('#submit-name-btn');
+let astronaut = document.querySelector('#character') as HTMLElement;
+let astronautSprite = document.querySelector('#character-sprite') as HTMLElement;
+let obstacle1 = document.querySelector('#asteroid') as HTMLElement;
+let obstacle2 = document.querySelector('#asteroid2') as HTMLElement;
+let fuelCell = document.querySelector('#fuel') as HTMLElement;
+let currentScoreP = document.querySelector('#current-score') as HTMLElement;
+let highScoreP = document.querySelector('#high-score') as HTMLElement;
+let fuelP = document.querySelector("#fuel-display") as HTMLElement;
+let gameArea = document.querySelector('.game-container ') as HTMLElement;
+let gameOverModal = document.querySelector('#game-over-modal') as HTMLElement;
+let startGameModal = document.querySelector('#start-game-modal') as HTMLElement;
+let getNameModal = document.querySelector('#get-name-modal') as HTMLElement;
+const playAgainBtn = document.querySelector('#play-again-btn') as HTMLElement;
+const body = document.querySelector('#body') as HTMLBodyElement;
+const startBtn = document.querySelector('#start-btn') as HTMLElement;
+let soundOnBtn = document.querySelector('#sound-on') as HTMLElement;
+let soundOffBtn = document.querySelector('#sound-off') as HTMLElement;
+let nameInput = document.querySelector('#name-input') as HTMLInputElement;
+let submitNameBtn = document.querySelector('#submit-name-btn') as HTMLElement;
 
 // Creating Sound and Music Objects
 const musicDir = '/assets/music/'
@@ -72,28 +73,28 @@ soundOnBtn.addEventListener('click', () => {
     soundOffBtn.classList.remove('d-none');
     bgMusic.pause();
 });
-soundOffBtn.addEventListener('click',() => {
+soundOffBtn.addEventListener('click', () => {
     soundOffBtn.classList.add('d-none');
     soundOnBtn.classList.remove('d-none');
     bgMusic.play();
- });
+});
 
 // Functions Section
 
 // Gravity Function
 
-function gravity(){
+function gravity() {
     // getting Astronaut Top Value, and updating it.
     let astronautTop = parseInt(window.getComputedStyle(astronaut).getPropertyValue('top'));
 
-    if (jumping === 0){
+    if (jumping === 0) {
         astronaut.style.top = `${astronautTop + 2}px`;
     }
 }
 
 //Jumping Function
 
-function jump(event){
+function jump(event: any) {
     event.preventDefault() // to prevent default actions of certain keys
 
     jumping = 1; //Change to one in order to stop gravity to affect Astronaut
@@ -102,20 +103,20 @@ function jump(event){
 
     jumpSound.play();//To Play Jumping sound, Sound has a delay so it doesn't really gets play every time Astronaut Jumps
 
-    
+
     let jumpCount = 0;  //To keep track of jumping interval, how many intervals of jumps have happened
 
     // making a jump interval to simulate jumping animation and track of vertical Astronaut position every 10 Milliseconds
-    let jumpInterval = setInterval(function(){
+    let jumpInterval = setInterval(function () {
         let characterTop = parseInt(window.getComputedStyle(astronaut).getPropertyValue('top'));
-        if((characterTop > -5) && (jumpCount < 15)){
+        if ((characterTop > -5) && (jumpCount < 15)) {
             // this will only execute if character is inside the game-area, and its less than 15 intervals of jump.
             astronaut.style.top = (characterTop - 4) + 'px';//Updating astronaut position
 
             astronautSprite.style.bottom = '246px';// Moving astronaut Sprite to where the jetpack is lit.
         }
 
-        if(jumpCount > 20){
+        if (jumpCount > 20) {
             // this will execute after 20 jumping interval, reason is the make the astronaut go up for 15 intervals, stand still for 5, and then finally going back to gravity.
             // to Simulate a jumping animation.
             clearInterval(jumpInterval) //clearing jump interval/canceling jump
@@ -141,20 +142,20 @@ function collisionDetection() {
     }
 
     //creating another object but with Asteroid 1 info, to keep its position as well.
-    let obstacle1Ob ={
+    let obstacle1Ob = {
         width: parseInt(window.getComputedStyle(obstacle1).getPropertyValue('width')),
         height: parseInt(window.getComputedStyle(obstacle1).getPropertyValue('height')),
         x: parseInt(window.getComputedStyle(obstacle1).getPropertyValue('left')) + 30,
-        y:  parseInt(window.getComputedStyle(obstacle1).getPropertyValue('top'))
+        y: parseInt(window.getComputedStyle(obstacle1).getPropertyValue('top'))
     }
 
-    
+
     //creating another object but with Asteroid 2 info, to keep its position as well.
-    let obstacle2Ob ={
+    let obstacle2Ob = {
         width: parseInt(window.getComputedStyle(obstacle2).getPropertyValue('width')),
         height: parseInt(window.getComputedStyle(obstacle2).getPropertyValue('height')),
         x: parseInt(window.getComputedStyle(obstacle2).getPropertyValue('left')) + 120,
-        y:  parseInt(window.getComputedStyle(obstacle2).getPropertyValue('top'))
+        y: parseInt(window.getComputedStyle(obstacle2).getPropertyValue('top'))
     }
 
     //creating another object but with fuel info, to keep its position as well.
@@ -162,38 +163,38 @@ function collisionDetection() {
         width: parseInt(window.getComputedStyle(fuelCell).getPropertyValue('width')),
         height: parseInt(window.getComputedStyle(fuelCell).getPropertyValue('height')),
         x: parseInt(window.getComputedStyle(fuelCell).getPropertyValue('left')) + 230,
-        y:  parseInt(window.getComputedStyle(fuelCell).getPropertyValue('top'))
+        y: parseInt(window.getComputedStyle(fuelCell).getPropertyValue('top'))
     }
-    
+
     // first collision detection between Astronaut and Asteroid 1, if triggered game over.
-    if(astronautOb.x < obstacle1Ob.x + obstacle1Ob.width && astronautOb.x + astronautOb.width > obstacle1Ob.x && astronautOb.y < obstacle1Ob.y + obstacle1Ob.height && astronautOb.y + astronautOb.height > obstacle1Ob.y){
-       endGame()
+    if (astronautOb.x < obstacle1Ob.x + obstacle1Ob.width && astronautOb.x + astronautOb.width > obstacle1Ob.x && astronautOb.y < obstacle1Ob.y + obstacle1Ob.height && astronautOb.y + astronautOb.height > obstacle1Ob.y) {
+        endGame()
     }
 
     // Second collision detection between Astronaut and Asteroid 2
-    if(astronautOb.x < obstacle2Ob.x + obstacle2Ob.width && astronautOb.x + astronautOb.width > obstacle2Ob.x && astronautOb.y < obstacle2Ob.y + obstacle2Ob.height && astronautOb.y + astronautOb.height > obstacle2Ob.y){
+    if (astronautOb.x < obstacle2Ob.x + obstacle2Ob.width && astronautOb.x + astronautOb.width > obstacle2Ob.x && astronautOb.y < obstacle2Ob.y + obstacle2Ob.height && astronautOb.y + astronautOb.height > obstacle2Ob.y) {
         endGame()
     }
     // Second collision detection between Astronaut and fuel, if triggered fuel will increase depending on score level.
-    if(astronautOb.x < fuelOB.x + fuelOB.width && astronautOb.x + astronautOb.width > fuelOB.x && astronautOb.y < fuelOB.y + fuelOB.height && astronautOb.y + astronautOb.height > fuelOB.y){
-        if(counter < 15){
+    if (astronautOb.x < fuelOB.x + fuelOB.width && astronautOb.x + astronautOb.width > fuelOB.x && astronautOb.y < fuelOB.y + fuelOB.height && astronautOb.y + astronautOb.height > fuelOB.y) {
+        if (counter < 15) {
             //if score level is less than 15 fuel will give 30 fuel points
             fuel += 30;
-        }else if (counter  >= 15 && counter < 25 ){
+        } else if (counter >= 15 && counter < 25) {
             //if score equals or more than 20 and  less than 25 fuel will give only 20 fuel points
             fuel += 20;
-        }else if (counter  >= 25){
+        } else if (counter >= 25) {
             //if score level is equals or greater than 255 fuel will give 15 fuel points
             fuel += 15;
         }
 
         // make sure that player does not get more than 100% fuel
-        if(fuel > 100){
+        if (fuel > 100) {
             fuel = 100;
         }
         // displaying new fuel levels to player
         fuelP.textContent = `Fuel: ${fuel}%`
-        
+
         //removing the fuel cell from Astronaut path so it doesn't trigger the collision more than once, also moving the fuel cell out of players vision.
         fuelCell.style.top = '460px'
 
@@ -202,7 +203,7 @@ function collisionDetection() {
     }
 
     // out of bound detection for Astronaut game over if hits the top or bottom of game-area.
-    if(astronautOb.y >= 410 || astronautOb.y <= -5){
+    if (astronautOb.y >= 410 || astronautOb.y <= -5) {
         endGame()
     }
 }
@@ -215,31 +216,31 @@ function startGame() {
 
     startGameModal.classList.add('d-none'); //removing instructions from view
     gameArea.classList.remove('d-none'); //Displaying game-area.
-    gravityInterval = setInterval(gravity,10) //starting gravity function with interval so it can affect the astronaut
+    gravityInterval = setInterval(gravity, 10) //starting gravity function with interval so it can affect the astronaut
 
     //starting the collision detection function, with interval to keep track of every object in movement and detect if they crash into each other
-    collisionInterval = setInterval(collisionDetection,10); 
+    collisionInterval = setInterval(collisionDetection, 10);
 
     //getting high score and displaying it
     getHighScore();
     highScoreP.textContent = `High Score: ${highScore}`; //Displaying New local if any High score
-    
+
     playBtnSoundFX.play(); //SoundFX for when start button is pressed
 
     // Playing background music, after the play btn soundFX is done playing.
-    setTimeout(()=>{
+    setTimeout(() => {
         bgMusic.play()
-    },700)
+    }, 700)
 }
 
 function playAgain() {
     gameOverModal.classList.add('d-none'); //hiding game over screen
     gameArea.classList.remove('d-none'); //Showing game-area.
-    startGame(); 
+    startGame();
 
 }
 
-function endGame(){
+function endGame() {
     // Crash Sound FX
     crashSound.play();
     bgMusic.pause();//stopping bg music
@@ -264,17 +265,17 @@ function endGame(){
 
     // resetting Animations Back to initial
     // asteroid 1
-    let ob1CurrentClass = obstacle1.classList;
+    let ob1CurrentClass = obstacle1.classList.value;
     obstacle1.classList.remove(ob1CurrentClass);
     obstacle1.classList.add('asteroidAnimation')
 
     // asteroid 2
-    let ob2CurrentClass = obstacle2.classList;
+    let ob2CurrentClass = obstacle2.classList.value;
     obstacle2.classList.remove(ob2CurrentClass);
     obstacle2.classList.add('asteroid2Animation');
-    
+
     // fuel Cell
-    let fcCurrentClass = fuelCell.classList;
+    let fcCurrentClass = fuelCell.classList.value;
     fuelCell.classList.remove(fcCurrentClass);
     fuelCell.classList.add('fuelAnimation')
 
@@ -286,22 +287,22 @@ function endGame(){
 
     // get the HTML elements to display this
 
-    let yourScore = document.querySelector('#your-score');
-    let highSD = document.querySelector('#highest-score-display');
+    let yourScore = document.querySelector('#your-score') as HTMLElement;
+    let highSD = document.querySelector('#highest-score-display') as HTMLElement;
 
     // Updating dom Element with current status
     yourScore.textContent = `Your Score is: ${counter}`
     highSD.textContent = `High Score is: ${highScore}`
-    
+
 
     // resetting the counter and fuel
     counter = 0;
-    currentScoreP.textContent =`Current Score: ${counter}`
+    currentScoreP.textContent = `Current Score: ${counter}`
 
     fuel = 100;
     fuelP.textContent = `Fuel: ${fuel}%`
 
-    
+
 
     // moving astronaut to initial position
 
@@ -311,21 +312,21 @@ function endGame(){
 
 // getting Highest Score Functions
 
-function getHighScore(){
+function getHighScore() {
     // getting High score from local Storage
     let localStorageScore = localStorage.getItem('HighScore');
 
     // if theres is local storage with High score assign it to highScore
     // if not let highScore still be 0
-    if (localStorageScore !== null){
-        localStorageScore = JSON.parse(localStorageScore);
-        highScore = localStorageScore
+    if (localStorageScore !== null) {
+        let parsedLocalStorageScore: number = parseInt(JSON.parse(localStorageScore));
+        highScore = parsedLocalStorageScore
     }
 }
 
-function updatingHighScore(){
+function updatingHighScore() {
     // this to be executed only if current score is higher than High Score.
-    if (counter > highScore){
+    if (counter > highScore) {
         highScore = counter;
 
         // saving to local;
@@ -335,90 +336,90 @@ function updatingHighScore(){
 }
 
 // Random obstacle place function
-function  randomPos(event){
-    let random = (Math.random()* 354); //getting a random number between 0 and 350 (height of game area)
+function randomPos(event: any) {
+    let random = (Math.random() * 354); //getting a random number between 0 and 350 (height of game area)
     event.target.style.top = `${random}px`; //Changing current element vertical position before new Animation Iteration starts
-    
+
     //Updating score counter  and displaying it after animation iteration finishes
-    if (event.target.id === 'asteroid' || event.target.id === 'asteroid2'){
+    if (event.target.id === 'asteroid' || event.target.id === 'asteroid2') {
         counter++;
-        currentScoreP.textContent =`Current Score: ${counter}`;
+        currentScoreP.textContent = `Current Score: ${counter}`;
     }
 
     // Changing Animation Class in order to change animation speed of the objects after level six/
-    if (counter >= 6 && counter <= 8){
+    if (counter >= 6 && counter <= 8) {
         //added counter <= 8 to to stop removing and adding the animation classes to elements. Only 3 elements.
         event.target.classList.remove(`${event.target.id}Animation`); //removing initial animation
         event.target.classList.add(`${event.target.id}AnimationLvl2`); //adding new faster animation
     }
 }
 
-function trackingFuel(){
+function trackingFuel() {
     // when score is less than 20 every jump will reduce fuel by 2
-    if(counter < 20){
+    if (counter < 20) {
         fuel -= 2;
-    }else{ // for everything else every jump will reduce fuel by 4
-        fuel -=4;
+    } else { // for everything else every jump will reduce fuel by 4
+        fuel -= 4;
     }
     // Displaying Updated fuel tank to Player
     fuelP.textContent = `Fuel: ${fuel}%`
 
     // if fuel gets to 0 it's Game Over!
-    if (fuel <= 0){
+    if (fuel <= 0) {
         endGame();
     }
 }
 
 // function to compare current score against leader board
 // importing leaderBoard from  leaderBoard.js or DB
-import { leaderBoard1 } from '/leaderBoard.js'
+import { LeaderBoard, leaderBoard1 } from './leaderBoard'
 let leaderBoard = leaderBoard1
 
-async function getDB(){
-    try{
+async function getDB() {
+    try {
         const response = await fetch('https://jetpack-evader-back-end.herokuapp.com/scores')
-        if(response !== null){
-            
+        if (response !== null) {
+
             let parsedRes = await response.json();
-    
-            leaderBoard = Object.values(parsedRes)
+
+            leaderBoard = leaderBoardTuple(parsedRes)
 
             gotFromDB = true;
         }
     }
-    catch (err){
+    catch (err) {
         console.error(err)
     }
 }
 
-function updatingLeaderBoard(){
+function updatingLeaderBoard() {
 
     // function to compare current score against leader board
     // comparing current score against each player in LB
     // will compare from first places onwards, once its greater than one of the place will need to stop the loop to prevent it from saving into other placements.
-    for(let i = 0; i < leaderBoard.length; i++){//Using for loop instead of array methods because I need to stop loop.
-        if(counter > leaderBoard[i].score){
+    for (let i = 0; i < leaderBoard.length; i++) {//Using for loop instead of array methods because I need to stop loop.
+        if (counter > leaderBoard[i].score) {
             getPlayerName(i, counter);
             return
         }
     }
 }
 
-function getPlayerName(i, counter){
-//  submit-name-btn need the index and counter
-//hide the game over screen and show the get name screen.
-gameOverModal.classList.add('d-none');
-getNameModal.classList.remove('d-none');
+function getPlayerName(i: number, counter: number) {
+    //  submit-name-btn need the index and counter
+    //hide the game over screen and show the get name screen.
+    gameOverModal.classList.add('d-none');
+    getNameModal.classList.remove('d-none');
 
-indexSubmit = i;
+    indexSubmit = i;
 
-leaderScore = counter;
+    leaderScore = counter;
 
-//event listener for when the name is submitted
-submitNameBtn.addEventListener('click', handleSubmitClick)
+    //event listener for when the name is submitted
+    submitNameBtn.addEventListener('click', handleSubmitClick)
 }
- async function handleSubmitClick() {
-     //create an Object to match the LB Array Objects
+async function handleSubmitClick() {
+    //create an Object to match the LB Array Objects
     let newPlayer = {
         name: nameInput.value,
         score: leaderScore
@@ -429,13 +430,13 @@ submitNameBtn.addEventListener('click', handleSubmitClick)
     console.log('added current player:', leaderBoard);
 
     //removing last item form Array;
-    leaderBoard.splice(-1,1);
+    leaderBoard.splice(-1, 1);
     console.log('Removed last item', leaderBoard);
 
     //saving leader board to db
     let newLDBString = JSON.stringify(leaderBoard);
-    if(gotFromDB){
-        try{
+    if (gotFromDB) {
+        try {
             const response = await fetch('https://jetpack-evader-back-end.herokuapp.com/scores', {
                 method: 'POST',
                 headers: {
@@ -443,13 +444,12 @@ submitNameBtn.addEventListener('click', handleSubmitClick)
                 },
                 body: newLDBString
             })
-            console.log(JSON.parse(response.body));
-        } 
-        catch (err){
+        }
+        catch (err) {
             console.error(err + "SORRY")
             localStorage.setItem('leaderBoard', newLDBString);
         }
-    }else {
+    } else {
         localStorage.setItem('leaderBoard', newLDBString);
     }
 
@@ -460,7 +460,7 @@ submitNameBtn.addEventListener('click', handleSubmitClick)
     gameOverModal.classList.remove('d-none');
 
     submitNameBtn.removeEventListener('click', handleSubmitClick);
- }
+}
 
 
 // bottom: 128px;  resting pos

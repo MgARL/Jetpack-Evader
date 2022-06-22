@@ -109,6 +109,7 @@ creditsBtn.addEventListener('click', () => {
 
 
 import { leaderBoard1, Player, LeaderBoard } from './leaderBoard'
+import { leaderBoardTuple } from './leaderBoardTuple'
 let leaderBoard = leaderBoard1
 
 
@@ -121,11 +122,9 @@ async function getDB(){
         if(response !== null){
             
             let parsedRes= await response.json();
-            let unparsedLB:Player[] = Object.values(parsedRes)
-            if(unparsedLB.length === 5){
-                leaderBoard = Object.values(parsedRes)
 
-            }
+            leaderBoard = leaderBoardTuple(parsedRes)
+            
     
             displayData()
             return
@@ -160,12 +159,12 @@ async function displayData(){
         td.classList.add('text-danger'); //giving different color to placements
         tr.appendChild(td);
         // to get name and score, will need to transform the ob into an Array.
-         let playerArr = Object.values(player);
+         let playerArr = leaderBoardTuple(player);
 
         // Iterate over the player Array  to create another td, with Name and Score, and append it to the tr
-        playerArr.forEach(value => {
+        playerArr.forEach((value: Player) => {
             let td2 = document.createElement('td');
-            td2.textContent = value;
+            td2.textContent = value.name + value.score;
             tr.appendChild(td2);
         })
     })

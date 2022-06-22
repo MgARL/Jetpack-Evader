@@ -1,7 +1,7 @@
 // Object Interface
 interface Player {
     name: string,
-    score: string
+    score: number
 }
 
 // tuple
@@ -11,19 +11,19 @@ type LeaderBoard = [Player, Player, Player, Player, Player]
 
 let leaderBoard1: LeaderBoard = [{
     name: 'Miguel',
-    score: '30'
+    score: 30
 },{
     name: 'Ceci',
-    score: '16'
+    score: 16
 },{
     name: 'Nick',
-    score: '12'
+    score: 12
 },{
     name: 'Edgar',
-    score: '6'
+    score: 6
 },{
     name: 'Annie',
-    score: '3'
+    score: 3
 }];
 
 
