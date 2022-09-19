@@ -377,7 +377,7 @@ let leaderBoard = leaderBoard1
 
 async function getDB(){
     try{
-        const response = await fetch('https://jetpack-evader-back-end.herokuapp.com/scores')
+        const response = await fetch('https://jpe-prod.up.railway.app/scores')
         if(response !== null){
             
             let parsedRes = await response.json();
@@ -437,7 +437,7 @@ submitNameBtn.addEventListener('click', handleSubmitClick)
     let newLDBString = JSON.stringify(leaderBoard);
     if(gotFromDB){
         try{
-            const response = await fetch('https://jetpack-evader-back-end.herokuapp.com/scores', {
+            const response = await fetch('https://jpe-prod.up.railway.app/scores', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
